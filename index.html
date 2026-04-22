@@ -2,177 +2,297 @@
 <html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#22c55e">
+    <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
     <link rel="apple-touch-icon" href="https://via.placeholder.com/192x192.png?text=Eco">
-    <title>EcoRenda - Transforme Lixo em Dinheiro</title>
+    <title>EcoRenda - Transforme lixo em dinheiro</title>
     <style>
+        /* Apple Human Interface Guidelines - System Colors & Theming */
         :root {
-            --primary: #22c55e;
-            --primary-dark: #16a34a;
-            --secondary: #3b82f6;
-            --bg-body: #f0fdf4;
-            --bg-card: #ffffff;
-            --text-main: #166534;
-            --text-muted: #4b5563;
-            --border: #dcfce7;
-            --radius: 24px;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --focus-ring: 4px solid #f59e0b; /* Contraste alto para navegação por teclado */
+            /* Fundo Secundário (Grouped Background) usado para o corpo da App */
+            --bg-body: #F2F2F7;
+            /* Fundo Principal (System Background) usado para Cartões */
+            --bg-card: #FFFFFF;
+            
+            /* Textos */
+            --text-primary: #000000;
+            --text-secondary: rgba(60, 60, 67, 0.6);
+            
+            /* Cores de Destaque */
+            --system-green: #34C759;
+            --system-yellow: #FFCC00;
+            --system-blue: #007AFF;
+            --system-red: #FF3B30;
+            
+            /* UI Elements */
+            --separator: rgba(60, 60, 67, 0.29);
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.04);
+            --focus-ring: 4px solid var(--system-green);
         }
 
+        /* Dark Mode Nativo da Apple */
         [data-theme="dark"] {
-            --primary: #22c55e;
-            --primary-dark: #4ade80;
-            --secondary: #60a5fa;
-            --bg-body: #111827;
-            --bg-card: #1f2937;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border: #374151;
-        }
-        
-        [data-contrast="high"] {
-            --primary: #ffff00;
-            --primary-dark: #cc0000;
-            --secondary: #00ffff;
+            /* Preto Puro para poupar bateria OLED */
             --bg-body: #000000;
-            --bg-card: #000000;
-            --text-main: #ffffff;
-            --text-muted: #ffff00;
-            --border: #ffffff;
+            /* Fundo Secundário para elevação (Cards) */
+            --bg-card: #1C1C1E;
+            
+            /* Textos */
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(235, 235, 245, 0.6);
+            
+            /* Cores de Destaque Adaptadas para Dark Mode */
+            --system-green: #30D158;
+            --system-yellow: #FFD60A;
+            --system-blue: #0A84FF;
+            --system-red: #FF453A;
+            
+            /* UI Elements */
+            --separator: rgba(84, 84, 88, 0.65);
+            --glass-bg: rgba(28, 28, 30, 0.75);
+            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            /* Fonte Oficial Apple: San Francisco */
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s cubic-bezier(0.25, 0.1, 0.25, 1), color 0.3s ease;
         }
 
-        /* Outline de acessibilidade global */
         *:focus-visible {
             outline: var(--focus-ring);
             outline-offset: 2px;
-            border-radius: 4px;
+            border-radius: 8px;
+        }
+
+        /* Fonte arredondada para números (SF Pro Rounded) */
+        .sf-rounded {
+            font-family: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            letter-spacing: -0.5px;
         }
 
         body {
             background-color: var(--bg-body);
-            color: var(--text-main);
-            padding-bottom: 90px;
+            color: var(--text-primary);
+            padding-bottom: 110px;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Utilitário para Leitores de Tela (Sr Only) */
         .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
         }
 
+        /* Glassmorphism Header (Vibrancy) */
         header {
-            background-color: var(--primary);
-            color: white;
-            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 0.5px solid var(--separator);
+            padding: 16px 20px;
+            padding-top: calc(env(safe-area-inset-top) + 20px);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom-left-radius: var(--radius);
-            border-bottom-right-radius: var(--radius);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
-        header h1 { font-size: 1.5rem; margin-bottom: 2px; }
-        header p { font-size: 0.85rem; opacity: 0.9; }
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-        .header-controls { display: flex; gap: 10px; }
+        .header-logo {
+            width: 36px;
+            height: 36px;
+            background: var(--system-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(52, 199, 89, 0.3);
+        }
+
+        .header-title-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header h1 { 
+            font-size: 1.4rem; 
+            font-weight: 700; 
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        header p { 
+            font-size: 0.8rem; 
+            color: var(--text-secondary); 
+            font-weight: 500;
+        }
+
+        .header-controls { display: flex; gap: 12px; }
         .icon-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none; color: white; width: 44px; height: 44px; /* Touch target size 44px (Acessibilidade) */
-            border-radius: 50%; cursor: pointer; font-size: 1.2rem;
+            background: var(--bg-card);
+            border: none;
+            color: var(--system-green);
+            width: 36px; height: 36px;
+            border-radius: 50%; cursor: pointer; font-size: 1.1rem;
             display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         main { padding: 20px; max-width: 600px; margin: 0 auto; }
 
-        .section { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .section { display: none; animation: iosFadeIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .section.active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes iosFadeIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .card { background: var(--bg-card); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow); border: 1px solid var(--border); }
-        .idea-card { background: var(--bg-card); border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 1px solid var(--border); }
+        /* Large Titles (Apple Style) */
+        .large-title {
+            font-size: 2.1rem;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            margin-bottom: 20px;
+            padding-left: 4px;
+        }
 
+        /* iOS Cards and Lists */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        /* Buttons (Apple Style) */
         .btn {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            width: 100%; padding: 16px; border: none; border-radius: 12px;
-            font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white;
-            min-height: 48px; /* Touch target acessível */
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 16px; border: none; border-radius: var(--radius-md);
+            font-size: 1.05rem; font-weight: 600; cursor: pointer;
+            transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
         }
-        .btn:active { transform: scale(0.98); }
-        .btn-primary { background-color: var(--primary); box-shadow: 0 4px 6px rgba(34, 197, 94, 0.3); }
-        .btn-secondary { background-color: var(--secondary); box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3); }
-        .btn-outline { background-color: transparent; color: var(--text-main); border: 2px solid var(--border); }
+        .btn:active { transform: scale(0.96); opacity: 0.8; }
+        .btn-primary { background-color: var(--system-green); color: #fff; }
+        .btn-secondary { background-color: var(--bg-body); color: var(--system-green); }
+        .btn-destructive { background-color: transparent; color: var(--system-red); font-weight: 500;}
 
-        .material-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
-        .controls { display: flex; align-items: center; gap: 15px; }
+        /* List Items */
+        .material-item {
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 16px 0; border-bottom: 0.5px solid var(--separator);
+        }
+        .material-item:last-child { border-bottom: none; }
+        
+        .controls { display: flex; align-items: center; gap: 16px; }
         .btn-icon-small {
-            width: 44px; height: 44px; border-radius: 50%; border: none;
-            background-color: var(--border); color: var(--text-main);
-            font-size: 1.5rem; font-weight: bold; cursor: pointer;
+            width: 32px; height: 32px; border-radius: 50%; border: none;
+            background-color: var(--bg-body); color: var(--text-primary);
+            font-size: 1.2rem; font-weight: 500; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
         }
+        .btn-icon-small:active { background-color: var(--separator); }
 
+        /* Bottom Nav (Glassmorphism) */
         .bottom-nav {
-            position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-card);
-            display: flex; justify-content: space-around; padding: 10px 0;
-            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05); border-top: 1px solid var(--border); z-index: 100;
+            position: fixed; bottom: 0; left: 0; right: 0; 
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%); 
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            display: flex; justify-content: space-around; 
+            padding: 10px 0; padding-bottom: calc(env(safe-area-inset-bottom) + 12px);
+            border-top: 0.5px solid var(--separator); z-index: 100;
         }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); font-size: 0.8rem; padding: 10px; cursor: pointer; flex: 1; }
-        .nav-item.active { color: var(--primary); font-weight: bold; }
+        .nav-item { 
+            display: flex; flex-direction: column; align-items: center; 
+            color: var(--text-secondary); font-size: 0.75rem; font-weight: 500; 
+            padding: 6px 10px; cursor: pointer; flex: 1; 
+        }
+        .nav-item.active { color: var(--system-green); }
+        .nav-icon { font-size: 1.4rem; margin-bottom: 4px; }
 
-        .filters { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; }
-        .filter-chip { padding: 10px 16px; border-radius: 20px; background: var(--bg-body); border: 1px solid var(--border); color: var(--text-muted); cursor: pointer; white-space: nowrap; font-weight: bold;}
-        .filter-chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+        /* iOS Segmented Control */
+        .segmented-control {
+            display: flex; background: var(--separator); padding: 2px; 
+            border-radius: 9px; margin-bottom: 24px;
+        }
+        .segment {
+            flex: 1; text-align: center; padding: 6px 12px; border-radius: 7px; 
+            font-weight: 600; font-size: 0.85rem; color: var(--text-primary);
+            cursor: pointer; border: none; background: transparent;
+        }
+        .segment.active {
+            background: var(--bg-card); 
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.04);
+        }
 
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; margin-bottom: 5px; color: var(--text-muted); font-size: 1rem; font-weight: bold;}
-        .input-group input { width: 100%; padding: 16px; border-radius: 8px; border: 2px solid var(--border); background: var(--bg-body); color: var(--text-main); font-size: 1.1rem; }
+        /* Inputs */
+        .input-group { margin-bottom: 18px; }
+        .input-group label { display: block; margin-bottom: 8px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;}
+        .input-group input { 
+            width: 100%; padding: 16px; border-radius: var(--radius-md); 
+            border: none; background: var(--bg-body); color: var(--text-primary); 
+            font-size: 1.1rem; font-weight: 500;
+        }
+        .input-group input:focus { outline: var(--focus-ring); background: var(--bg-card); box-shadow: 0 0 0 1px var(--separator); }
 
-        .wallet-card { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border-radius: var(--radius); padding: 30px 20px; text-align: center; margin-bottom: 20px; }
-        .history-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border); }
-
-        /* Câmara Scanner UI */
-        #cameraScanner { width: 100%; height: 250px; background: #000; border-radius: 16px; overflow: hidden; position: relative; display: none; margin-bottom: 15px;}
+        /* Scanner Overlay */
+        #cameraScanner { width: 100%; height: 250px; background: #000; border-radius: var(--radius-lg); overflow: hidden; position: relative; display: none; margin-bottom: 20px;}
         #videoElement { width: 100%; height: 100%; object-fit: cover; }
-        .scan-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; box-shadow: inset 0 0 0 4px var(--primary); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: inset 0 0 0 4px var(--primary); } 50% { box-shadow: inset 0 0 0 8px rgba(34, 197, 94, 0.5); } 100% { box-shadow: inset 0 0 0 4px var(--primary); } }
+        .scan-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; box-shadow: inset 0 0 0 4px var(--system-green); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: inset 0 0 0 4px var(--system-green); } 50% { box-shadow: inset 0 0 0 12px rgba(52, 199, 89, 0.4); } 100% { box-shadow: inset 0 0 0 4px var(--system-green); } }
+
+        /* A11y Toggles (Apple Style Switches) */
+        .apple-toggle {
+            appearance: none; width: 51px; height: 31px; background: var(--separator); 
+            border-radius: 16px; position: relative; cursor: pointer; outline: none;
+            transition: background 0.3s;
+        }
+        .apple-toggle::after {
+            content: ''; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px;
+            background: #fff; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.3, 0.8, 0.4, 1.2);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .apple-toggle:checked { background: var(--system-green); }
+        .apple-toggle:checked::after { transform: translateX(20px); }
 
         /* Modal Acessibilidade */
-        .a11y-modal { position: fixed; bottom: 80px; right: 20px; background: var(--bg-card); border: 2px solid var(--primary); border-radius: 16px; padding: 15px; box-shadow: var(--shadow); z-index: 1000; display: none; width: 250px;}
-        .a11y-fab { position: fixed; bottom: 80px; right: 20px; width: 60px; height: 60px; background: var(--secondary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: var(--shadow); border: none; cursor: pointer; z-index: 1001; }
+        .a11y-modal { 
+            position: fixed; bottom: 120px; left: 20px; right: 20px; background: var(--glass-bg); 
+            backdrop-filter: blur(30px); border: 0.5px solid var(--separator); 
+            border-radius: var(--radius-lg); padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); 
+            z-index: 1000; display: none;
+        }
+
+        .voice-listening { background-color: var(--system-red) !important; color: white !important; animation: micPulse 1.5s infinite; }
+        @keyframes micPulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
-        .voice-listening { background-color: #ef4444 !important; animation: micPulse 1s infinite; }
-        @keyframes micPulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-        
-        .confetti { position: fixed; width: 10px; height: 10px; background-color: #f00; z-index: 9999; animation: fall 3s linear forwards; }
+        .confetti { position: fixed; width: 8px; height: 8px; border-radius: 50%; z-index: 9999; animation: fall 3s ease-in forwards; }
         @keyframes fall { to { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+        /* Utilitários Extras */
+        .wallet-highlight {
+            color: var(--system-yellow);
+        }
     </style>
 </head>
 <body>
@@ -181,48 +301,62 @@
     <div id="sr-announcer" aria-live="assertive" class="sr-only"></div>
 
     <header role="banner">
-        <div>
-            <h1 tabindex="0">EcoRenda</h1>
-            <p tabindex="0">Transforme lixo em dinheiro</p>
+        <div class="header-brand">
+            <!-- Logotipo: Folha minimalista com caule ascendente -->
+            <div class="header-logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22 V8" />
+                    <path d="M12 8 C18 8, 20 12, 20 15 C20 18, 12 18, 12 18" />
+                    <path d="M12 8 C6 8, 4 4, 4 1 C4 -2, 12 -2, 12 -2" transform="translate(0, 10)" />
+                    <path d="M7 16 L12 11 L17 16" />
+                </svg>
+            </div>
+            <div class="header-title-box">
+                <h1 tabindex="0">EcoRenda</h1>
+                <p tabindex="0">Transforme lixo em dinheiro.</p>
+            </div>
         </div>
         <div class="header-controls">
             <button class="icon-btn" onclick="App.toggleMic()" id="micBtn" aria-label="Ativar Comandos de Voz">🎤</button>
-            <button class="icon-btn" onclick="App.toggleTheme()" id="themeBtn" aria-label="Alternar Tema Escuro">🌙</button>
+            <button class="icon-btn" onclick="App.toggleA11yMenu()" aria-label="Acessibilidade">♿</button>
         </div>
     </header>
 
     <main role="main">
         <!-- ECRÃ 1: INÍCIO (MATERIAIS) -->
         <section id="home" class="section active" role="region" aria-labelledby="home-title">
-            <div class="card">
-                <h2 id="home-title" style="margin-bottom: 15px; font-size: 1.2rem;" tabindex="0">O seu Inventário</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;" tabindex="0">Adicione o que tem em casa. O assistente pode ajudar.</p>
-                
-                <!-- Área do Scanner de Visão Computacional -->
-                <div id="cameraScanner" aria-hidden="true">
-                    <video id="videoElement" autoplay playsinline></video>
-                    <div class="scan-overlay"></div>
-                </div>
-                <button id="btnScan" class="btn btn-secondary" style="margin-bottom: 20px;" onclick="App.startCameraScan()" aria-label="Abrir câmara para identificar materiais usando visão computacional">
-                    👁️ Analisar Ambiente com Câmara
-                </button>
+            
+            <h2 id="home-title" class="large-title" tabindex="0">Inventário</h2>
 
+            <button id="btnScan" class="btn btn-secondary" style="margin-bottom: 24px;" onclick="App.startCameraScan()" aria-label="Abrir câmara para identificar materiais usando visão computacional">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                Escanear Materiais
+            </button>
+
+            <div id="cameraScanner" aria-hidden="true">
+                <video id="videoElement" autoplay playsinline></video>
+                <div class="scan-overlay"></div>
+            </div>
+
+            <div class="card">
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 16px; line-height: 1.4;" tabindex="0">Adicione os recicláveis que tem disponíveis. O sistema indicará projetos lucrativos.</p>
+                
                 <div id="materialsListContainer" role="list" aria-label="Lista de materiais disponíveis"></div>
 
-                <button class="btn btn-outline" style="margin-top: 15px; border-color: #ef4444; color: #ef4444;" onclick="App.clearAllMaterials()" aria-label="Limpar todos os materiais do inventário">
-                    🗑️ Limpar Inventário
+                <button class="btn btn-destructive" style="margin-top: 16px;" onclick="App.clearAllMaterials()" aria-label="Limpar todos os materiais do inventário">
+                    Esvaziar Inventário
                 </button>
             </div>
         </section>
 
         <!-- ECRÃ 2: IDEIAS -->
         <section id="ideas" class="section" role="region" aria-labelledby="ideas-title">
-            <h2 id="ideas-title" style="margin-bottom: 15px;" tabindex="0">O que podemos criar?</h2>
+            <h2 id="ideas-title" class="large-title" tabindex="0">Projetos</h2>
             
-            <div class="filters" id="ideaFilters" role="tablist" aria-label="Filtros de ideias">
-                <button class="filter-chip active" role="tab" aria-selected="true" onclick="App.setFilter('all')">Todos</button>
-                <button class="filter-chip" role="tab" aria-selected="false" onclick="App.setFilter('easy')">Mais Fáceis</button>
-                <button class="filter-chip" role="tab" aria-selected="false" onclick="App.setFilter('profit')">Mais Lucrativos</button>
+            <div class="segmented-control" id="ideaFilters" role="tablist" aria-label="Filtros de ideias">
+                <button class="segment active" role="tab" aria-selected="true" onclick="App.setFilter('all')">Todos</button>
+                <button class="segment" role="tab" aria-selected="false" onclick="App.setFilter('easy')">Mais Fáceis</button>
+                <button class="segment" role="tab" aria-selected="false" onclick="App.setFilter('profit')">Lucrativos</button>
             </div>
 
             <div id="ideasList" aria-live="polite"></div>
@@ -231,23 +365,25 @@
         <!-- ECRÃ 3: TUTORIAL -->
         <section id="tutorial" class="section" role="region" aria-labelledby="tutorial-title">
             <div class="card" id="tutorialContent"></div>
-            <button class="btn btn-outline" onclick="App.showSection('ideas')" style="margin-bottom: 15px;" aria-label="Voltar para a lista de ideias">⬅️ Voltar às Ideias</button>
-            <button class="btn btn-primary" onclick="App.startSelling()" aria-label="Ir para a área de vendas deste produto">💰 PRONTO PARA VENDER!</button>
+            
+            <div style="display: flex; gap: 12px; margin-bottom: 30px;">
+                <button class="btn btn-secondary" style="flex: 1;" onclick="App.showSection('ideas')" aria-label="Voltar para a lista de ideias">Voltar</button>
+                <button class="btn btn-primary" style="flex: 2;" onclick="App.startSelling()" aria-label="Ir para a área de vendas deste produto">Confirmar Venda</button>
+            </div>
         </section>
 
         <!-- ECRÃ 4: VENDER -->
         <section id="sell" class="section" role="region" aria-labelledby="sell-title">
+            <h2 id="sell-title" class="large-title" tabindex="0">Cálculo Justo</h2>
+            
             <div class="card">
-                <h2 id="sell-title" style="margin-bottom: 15px;" tabindex="0">Calculadora de Preço Justo</h2>
-                
                 <div class="input-group">
-                    <label for="baseCost">Custo Materiais Extras (R$):</label>
+                    <label for="baseCost">Custos Adicionais (Tintas, cola... em R$):</label>
                     <input type="number" id="baseCost" value="0" step="0.5" oninput="App.calculatePrice()" aria-describedby="cost-desc">
-                    <span id="cost-desc" class="sr-only">Insira quanto gastou a mais em reais</span>
                 </div>
                 
                 <div class="input-group">
-                    <label for="timeSpent">Tempo Investido (Horas):</label>
+                    <label for="timeSpent">Tempo de Produção (Horas):</label>
                     <input type="number" id="timeSpent" value="1" step="0.5" oninput="App.calculatePrice()">
                 </div>
 
@@ -256,34 +392,37 @@
                     <input type="number" id="hourlyRate" value="15" step="1" oninput="App.calculatePrice()">
                 </div>
                 
-                <div style="text-align: center; margin: 25px 0; padding: 20px; background: var(--bg-body); border-radius: 16px;" aria-live="polite">
-                    <span style="font-size: 1rem; color: var(--text-muted);">Preço Justo Sugerido:</span><br>
-                    <span id="finalPrice" style="font-size: 2.5rem; font-weight: bold; color: var(--primary-dark);">R$ 0,00</span>
+                <div style="text-align: center; margin: 32px 0; padding: 24px; background: var(--bg-body); border-radius: var(--radius-lg);" aria-live="polite">
+                    <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Preço Recomendado</span><br>
+                    <span id="finalPrice" class="sf-rounded" style="font-size: 3.5rem; font-weight: 700; color: var(--system-green); display: inline-block; margin-top: 4px;">R$ 0,00</span>
                 </div>
 
-                <button class="btn btn-secondary" onclick="App.confirmSale()" style="margin-bottom: 15px; background-color: #f59e0b;" aria-label="Registar venda e descontar materiais do inventário">
-                    ✅ REGISTAR VENDA
+                <button class="btn btn-primary" onclick="App.confirmSale()" style="margin-bottom: 8px;" aria-label="Registar venda e descontar materiais do inventário">
+                    Registar Venda
                 </button>
+            </div>
 
-                <hr style="border: none; border-top: 1px solid var(--border); margin: 25px 0;">
-
-                <h3 style="margin-bottom: 15px; font-size: 1.1rem;" tabindex="0">Divulgar</h3>
-                <button class="btn btn-primary" onclick="App.copyToWhatsApp()" style="background-color: #25D366; box-shadow: 0 4px 6px rgba(37, 211, 102, 0.3);" aria-label="Copiar mensagem publicitária para o WhatsApp">
-                    💬 COPIAR PARA WHATSAPP
+            <div class="card">
+                <h3 style="margin-bottom: 12px; font-weight: 600; font-size: 1.2rem;" tabindex="0">Divulgar</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">Partilhe a sua peça ecológica com os seus contactos de forma rápida.</p>
+                <button class="btn btn-secondary" onclick="App.copyToWhatsApp()" aria-label="Copiar mensagem para o WhatsApp">
+                    Partilhar no WhatsApp
                 </button>
             </div>
         </section>
 
         <!-- ECRÃ 5: PERFIL / CARTEIRA -->
         <section id="profile" class="section" role="region" aria-labelledby="profile-title">
-            <div class="wallet-card" tabindex="0">
-                <p style="font-size: 1.1rem; opacity: 0.9;">Total Ganho com Reciclagem</p>
-                <h2 id="totalBalance" style="font-size: 3rem; margin: 10px 0;">R$ 0,00</h2>
-                <p style="font-size: 0.9rem;">Parabéns! O planeta agradece.</p>
+            <h2 class="large-title" tabindex="0">A sua Renda</h2>
+
+            <div class="card" style="text-align: center; padding: 40px 20px;" tabindex="0">
+                <p style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Saldo Acumulado</p>
+                <h2 id="totalBalance" class="sf-rounded wallet-highlight" style="font-size: 4rem; font-weight: 700; margin: 8px 0;">R$ 0,00</h2>
+                <p style="font-size: 0.95rem; color: var(--text-secondary);">Com o seu trabalho sustentável.</p>
             </div>
 
             <div class="card">
-                <h3 id="profile-title" style="margin-bottom: 15px;" tabindex="0">Histórico de Vendas</h3>
+                <h3 id="profile-title" style="margin-bottom: 16px; font-size: 1.3rem; font-weight: 600;" tabindex="0">Histórico de Vendas</h3>
                 <div id="salesHistory" role="list" aria-label="Histórico de vendas passadas">
                     <!-- Gerado por JS -->
                 </div>
@@ -291,31 +430,48 @@
         </section>
     </main>
 
-    <!-- Botão de Acessibilidade -->
-    <button class="a11y-fab" onclick="App.toggleA11yMenu()" aria-label="Abrir Opções de Acessibilidade e Assistência" aria-haspopup="true" aria-expanded="false" id="a11yBtn">
-        ♿
-    </button>
+    <!-- Modal Acessibilidade & Configurações -->
     <div class="a11y-modal" id="a11yModal" role="dialog" aria-label="Menu de Acessibilidade">
-        <h3 style="margin-bottom: 10px; font-size: 1.1rem;">Acessibilidade</h3>
-        <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer; padding: 10px 0;">
-            <input type="checkbox" id="toggleVoice" onchange="App.toggleVoiceAssistant()" style="width: 20px; height: 20px;">
-            <span>🔊 Leitor de Tela Ativo</span>
-        </label>
-        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 10px 0;">
-            <input type="checkbox" id="toggleContrast" onchange="App.toggleHighContrast()" style="width: 20px; height: 20px;">
-            <span>👁️ Alto Contraste</span>
-        </label>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <h3 style="font-size: 1.3rem; font-weight: 700;">Acessibilidade</h3>
+            <button onclick="App.toggleA11yMenu()" style="background: none; border: none; font-size: 1.2rem; color: var(--text-secondary); cursor: pointer;">✕</button>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <div>
+                <span style="font-weight: 600; display: block;">Leitor de Ecrã</span>
+                <span style="font-size: 0.8rem; color: var(--text-secondary);">Narração por voz da interface.</span>
+            </div>
+            <input type="checkbox" id="toggleVoice" class="apple-toggle" onchange="App.toggleVoiceAssistant()" aria-label="Ativar Leitor de Ecrã">
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <div>
+                <span style="font-weight: 600; display: block;">Modo Escuro</span>
+                <span style="font-size: 0.8rem; color: var(--text-secondary);">Forçar aparência escura.</span>
+            </div>
+            <input type="checkbox" id="toggleDark" class="apple-toggle" onchange="App.toggleTheme()" aria-label="Ativar Modo Escuro">
+        </div>
     </div>
 
     <nav class="bottom-nav" role="navigation" aria-label="Navegação Principal">
         <div class="nav-item active" onclick="App.showSection('home')" id="nav-home" role="button" tabindex="0" aria-label="Ir para Início, Inventário">
-            <span style="font-size: 1.5rem;" aria-hidden="true">🏠</span><span aria-hidden="true">Início</span>
+            <span class="nav-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </span>
+            <span aria-hidden="true">Início</span>
         </div>
-        <div class="nav-item" onclick="App.showSection('ideas')" id="nav-ideas" role="button" tabindex="0" aria-label="Ir para Ideias de Criação">
-            <span style="font-size: 1.5rem;" aria-hidden="true">💡</span><span aria-hidden="true">Ideias</span>
+        <div class="nav-item" onclick="App.showSection('ideas')" id="nav-ideas" role="button" tabindex="0" aria-label="Ir para Projetos">
+            <span class="nav-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            </span>
+            <span aria-hidden="true">Projetos</span>
         </div>
         <div class="nav-item" onclick="App.showSection('profile')" id="nav-profile" role="button" tabindex="0" aria-label="Ir para Carteira e Histórico">
-            <span style="font-size: 1.5rem;" aria-hidden="true">💼</span><span aria-hidden="true">Carteira</span>
+            <span class="nav-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 2-2h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg>
+            </span>
+            <span aria-hidden="true">Renda</span>
         </div>
     </nav>
 
@@ -324,7 +480,6 @@
             state: {
                 currentSection: 'home',
                 theme: 'light',
-                contrast: 'normal',
                 voiceEnabled: false,
                 isListening: false,
                 activeFilter: 'all',
@@ -340,61 +495,51 @@
 
             db: {
                 materials: {
-                    pet: { name: 'Garrafa PET', icon: '🍾', voiceAlias: ['garrafa', 'garrafas', 'pet'] },
+                    pet: { name: 'Garrafas PET', icon: '🍾', voiceAlias: ['garrafa', 'garrafas', 'pet'] },
                     cardboard: { name: 'Papelão', icon: '📦', voiceAlias: ['papelão', 'caixa'] },
-                    can: { name: 'Lata', icon: '🥫', voiceAlias: ['lata', 'latas'] },
-                    clothes: { name: 'Roupa Velha', icon: '👕', voiceAlias: ['roupa', 'camisa'] },
-                    paper: { name: 'Jornal/Revista', icon: '📰', voiceAlias: ['papel', 'jornal', 'revista'] }
+                    can: { name: 'Latas', icon: '🥫', voiceAlias: ['lata', 'latas'] },
+                    clothes: { name: 'Tecidos Antigos', icon: '👕', voiceAlias: ['roupa', 'camisa', 'tecido'] },
+                    paper: { name: 'Jornal / Revistas', icon: '📰', voiceAlias: ['papel', 'jornal', 'revista'] }
                 },
                 ideas: [
                     { 
                         id: 1, product: 'Vaso Auto-irrigável', difficulty: 'Fácil', basePrice: 15,
                         material: 'pet', requirements: { pet: 1 },
-                        materialsList: ["1 Garrafa PET", "Tesoura ou X-ato", "Fio/Barbante", "Terra/Planta"],
-                        detailedSteps: ["Corte a garrafa PET ao meio.", "Fure a tampa e passe o fio.", "Água em baixo, terra em cima com a planta."],
+                        materialsList: ["1 Garrafa PET", "Tesoura ou X-ato", "Fio de algodão", "Terra e Planta"],
+                        detailedSteps: ["Corte a garrafa PET exatamente ao meio.", "Faça um furo na tampa e passe o fio de algodão.", "Coloque água na base, encaixe o topo invertido e adicione terra com a planta."],
                         finalPreview: {
-                            description: "Vaso sustentável com reservatório.",
-                            image: `<svg role="img" aria-label="Ilustração de um Vaso feito de garrafa PET com uma planta verde." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="#dcfce7" /><path d="M 60 100 L 140 100 L 115 145 L 85 145 Z" fill="#bbf7d0"/><path d="M 100 100 Q 90 70 115 50" fill="none" stroke="#16a34a" stroke-width="5"/></svg>`
+                            description: "Vaso sustentável com reservatório acoplado.",
+                            image: `<svg role="img" aria-label="Ilustração de um Vaso feito de garrafa PET com uma planta verde." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="var(--bg-body)" /><path d="M 60 100 L 140 100 L 115 145 L 85 145 Z" fill="var(--system-green)" opacity="0.3"/><path d="M 100 100 Q 90 70 115 50" fill="none" stroke="var(--system-green)" stroke-width="5" stroke-linecap="round"/></svg>`
                         }
                     },
                     { 
-                        id: 2, product: 'Organizador de Secretária', difficulty: 'Médio', basePrice: 25,
+                        id: 2, product: 'Organizador Premium', difficulty: 'Médio', basePrice: 25,
                         material: 'cardboard', requirements: { cardboard: 2 },
-                        materialsList: ["2 Pedaços de Papelão", "Cola Quente", "Tecido para forrar"],
-                        detailedSteps: ["Corte o papelão em divisórias.", "Cole as peças formando nichos.", "Forre com tecido."],
+                        materialsList: ["2 Pedaços de Papelão", "Cola Quente", "Tecido, Tinta ou Papel Autocolante"],
+                        detailedSteps: ["Corte o papelão em placas e divisórias à medida.", "Utilize cola quente para erguer as paredes formando nichos.", "Forre o exterior com o tecido escolhido para um acabamento premium."],
                         finalPreview: {
-                            description: "Organizador de mesa elegante.",
-                            image: `<svg role="img" aria-label="Ilustração de um organizador de mesa de papelão com canetas coloridas." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="#fef3c7" /><rect x="50" y="80" width="100" height="70" rx="4" fill="#d97706" /><rect x="65" y="60" width="6" height="50" fill="#10b981" rx="2" transform="rotate(-15 68 85)"/></svg>`
+                            description: "Organizador de secretária elegante.",
+                            image: `<svg role="img" aria-label="Ilustração de um organizador de mesa de papelão com canetas coloridas." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="var(--bg-body)" /><rect x="50" y="80" width="100" height="70" rx="6" fill="var(--system-yellow)" opacity="0.8"/><rect x="65" y="60" width="8" height="50" fill="var(--system-green)" rx="4" transform="rotate(-15 68 85)"/></svg>`
                         }
                     },
                     { 
-                        id: 3, product: 'Porta-Lápis Decorativo', difficulty: 'Fácil', basePrice: 10,
+                        id: 3, product: 'Porta-Lápis Minimal', difficulty: 'Fácil', basePrice: 10,
                         material: 'can', requirements: { can: 1 },
-                        materialsList: ["1 Lata limpa", "Lixa", "Tinta ou papel decorativo"],
-                        detailedSteps: ["Lixe o rebordo da lata.", "Pinte ou forre com o papel.", "Deixe secar."],
+                        materialsList: ["1 Lata vazia e lavada", "Folha de Lixa", "Tinta Acrílica"],
+                        detailedSteps: ["Passe a lixa com cuidado no rebordo para evitar cortes.", "Pinte a lata com duas demãos de tinta sólida.", "Deixe secar completamente antes de colocar as canetas."],
                         finalPreview: {
-                            description: "Lata reaproveitada para escritório.",
-                            image: `<svg role="img" aria-label="Ilustração de uma lata pintada de azul servindo de porta lápis." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="#e0e7ff" /><path d="M 60 90 L 60 160 Q 60 170 100 170 Q 140 170 140 160 L 140 90 Z" fill="#c7d2fe"/></svg>`
+                            description: "Lata reaproveitada para uso em escritório.",
+                            image: `<svg role="img" aria-label="Ilustração de uma lata servindo de porta lápis." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="var(--bg-body)" /><path d="M 60 90 L 60 160 Q 60 170 100 170 Q 140 170 140 160 L 140 90 Z" fill="var(--system-blue)" opacity="0.6"/></svg>`
                         }
                     },
                     {
-                        id: 4, product: 'EcoBag (Saco Ecológico)', difficulty: 'Médio', basePrice: 30,
+                        id: 4, product: 'Saco EcoBag', difficulty: 'Médio', basePrice: 30,
                         material: 'clothes', requirements: { clothes: 1 },
-                        materialsList: ["1 T-shirt velha", "Tesoura"],
-                        detailedSteps: ["Corte mangas e gola da t-shirt.", "Faça franjas na base e dê nós duplos."],
+                        materialsList: ["1 T-shirt antiga", "Tesoura própria para tecido"],
+                        detailedSteps: ["Corte as mangas e alargue a gola da t-shirt para criar as alças.", "Vire do avesso, faça cortes em franja na base e dê nós duplos apertados.", "Vire novamente para o lado certo e está pronta a usar."],
                         finalPreview: {
-                            description: "Saco de compras resistente.",
-                            image: `<svg role="img" aria-label="Ilustração de uma sacola ecobag rosa feita de tecido." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="#fce7f3" /><path d="M 55 80 L 145 80 L 135 150 Q 133 165 100 165 Q 67 165 65 150 Z" fill="#db2777"/><path d="M 75 80 Q 75 35 100 35 Q 125 35 125 80" fill="none" stroke="#db2777" stroke-width="12"/></svg>`
-                        }
-                    },
-                    {
-                        id: 6, product: 'Cesto Trançado', difficulty: 'Médio', basePrice: 35,
-                        material: 'paper', requirements: { paper: 5 },
-                        materialsList: ["5+ Jornais/Revistas", "Cola Branca", "Pau de espetada (para enrolar)"],
-                        detailedSteps: ["Faça canudos de papel usando o pauzinho.", "Trance a base e suba as paredes.", "Pinte ou envernize no fim."],
-                        finalPreview: {
-                            description: "Cesto firme que parece vime.",
-                            image: `<svg role="img" aria-label="Ilustração de um cesto trançado feito de canudos de jornal." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="#fef08a" /><path d="M 60 80 L 140 80 L 125 150 Q 100 160 75 150 Z" fill="#b45309"/><path d="M 60 80 Q 100 90 140 80" fill="none" stroke="#78350f" stroke-width="4"/></svg>`
+                            description: "Saco de compras em tecido resistente.",
+                            image: `<svg role="img" aria-label="Ilustração de uma sacola ecobag feita de tecido." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="var(--bg-body)" /><path d="M 55 80 L 145 80 L 135 150 Q 133 165 100 165 Q 67 165 65 150 Z" fill="var(--system-red)" opacity="0.7"/><path d="M 75 80 Q 75 35 100 35 Q 125 35 125 80" fill="none" stroke="var(--system-red)" stroke-width="12" stroke-linecap="round" opacity="0.7"/></svg>`
                         }
                     }
                 ]
@@ -403,28 +548,33 @@
             init() {
                 this.loadFromStorage();
                 this.applyTheme();
-                this.applyContrast();
                 this.setupVoiceRecognition();
                 this.updateHomeList();
                 this.updateWallet();
                 
-                // Set initial checkboxes for a11y modal
                 document.getElementById('toggleVoice').checked = this.state.voiceEnabled;
-                document.getElementById('toggleContrast').checked = this.state.contrast === 'high';
+                document.getElementById('toggleDark').checked = this.state.theme === 'dark';
 
                 this.showSection(this.state.currentSection, false);
                 
-                // Keyboard accessibility para nav items
+                // Keyboard accessibility
                 document.querySelectorAll('.nav-item').forEach(item => {
                     item.addEventListener('keypress', (e) => {
                         if (e.key === 'Enter' || e.key === ' ') item.click();
                     });
                 });
+
+                // Detetar modo escuro do sistema (se o utilizador não forçou na app)
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                    if(!localStorage.getItem('ecorenda_apple_theme_forced')) {
+                        this.state.theme = event.matches ? 'dark' : 'light';
+                        this.applyTheme();
+                    }
+                });
             },
 
-            // --- ACESSIBILIDADE CORE ---
+            // --- ACESSIBILIDADE & VOZ ---
             
-            // Avisa o Screen Reader nativo e (opcionalmente) fala em voz alta
             announce(text, polite = true) {
                 const announcer = document.getElementById('sr-announcer');
                 announcer.setAttribute('aria-live', polite ? 'polite' : 'assertive');
@@ -441,45 +591,25 @@
 
             toggleA11yMenu() {
                 const modal = document.getElementById('a11yModal');
-                const btn = document.getElementById('a11yBtn');
                 const isVisible = modal.style.display === 'block';
                 modal.style.display = isVisible ? 'none' : 'block';
-                btn.setAttribute('aria-expanded', !isVisible);
-                if (!isVisible) this.announce("Menu de acessibilidade aberto.");
+                if (!isVisible) this.announce("Menu de Definições aberto.");
             },
 
             toggleVoiceAssistant() {
                 this.state.voiceEnabled = document.getElementById('toggleVoice').checked;
                 this.saveToStorage();
                 if (this.state.voiceEnabled) {
-                    this.announce("Assistente de voz ativado. A ler ecrã.");
+                    this.announce("Leitor de Ecrã ativado.");
                 } else {
                     if (this.speechSyn.speaking) this.speechSyn.cancel();
                 }
             },
 
-            toggleHighContrast() {
-                this.state.contrast = document.getElementById('toggleContrast').checked ? 'high' : 'normal';
-                this.applyContrast();
-                this.saveToStorage();
-                this.announce("Modo de Alto Contraste " + (this.state.contrast === 'high' ? 'ativado' : 'desativado'));
-            },
-
-            applyContrast() {
-                if (this.state.contrast === 'high') {
-                    document.documentElement.setAttribute('data-contrast', 'high');
-                } else {
-                    document.documentElement.removeAttribute('data-contrast');
-                }
-            },
-
-            // --- COMANDOS DE VOZ (Reconhecimento) ---
             setupVoiceRecognition() {
                 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                if (!SpeechRecognition) {
-                    console.warn("Reconhecimento de voz não suportado neste navegador.");
-                    return;
-                }
+                if (!SpeechRecognition) return;
+                
                 this.recognition = new SpeechRecognition();
                 this.recognition.lang = 'pt-PT';
                 this.recognition.continuous = false;
@@ -487,7 +617,7 @@
                 this.recognition.onstart = () => {
                     this.state.isListening = true;
                     document.getElementById('micBtn').classList.add('voice-listening');
-                    this.announce("A ouvir. Diga um comando como 'Ir para ideias' ou 'Adicionar garrafa'.");
+                    this.announce("A ouvir o seu comando.");
                 };
 
                 this.recognition.onresult = (event) => {
@@ -503,7 +633,7 @@
 
             toggleMic() {
                 if (!this.recognition) {
-                    alert("O seu navegador não suporta comandos de voz.");
+                    alert("Acesso ao microfone não suportado no navegador.");
                     return;
                 }
                 if (this.state.isListening) {
@@ -514,72 +644,66 @@
             },
 
             processVoiceCommand(command) {
-                console.log("Comando de voz:", command);
-                if (command.includes('ideia') || command.includes('ideias')) {
+                if (command.includes('projeto') || command.includes('ideia')) {
                     this.showSection('ideas');
                 } else if (command.includes('início') || command.includes('inventário')) {
                     this.showSection('home');
-                } else if (command.includes('carteira') || command.includes('vendas')) {
+                } else if (command.includes('renda') || command.includes('carteira') || command.includes('vendas')) {
                     this.showSection('profile');
                 } else if (command.includes('adicionar') || command.includes('mais')) {
                     for (let key in this.db.materials) {
                         if (this.db.materials[key].voiceAlias.some(alias => command.includes(alias))) {
                             this.updateCount(key, 1);
-                            this.announce(`Adicionado uma ${this.db.materials[key].name}.`);
+                            this.announce(`Adicionado uma unidade de ${this.db.materials[key].name}.`);
                             return;
                         }
                     }
-                    this.announce("Não entendi qual material deseja adicionar.");
+                    this.announce("Não identifiquei o material no comando.");
                 } else {
-                    this.announce(`Comando não reconhecido: ${command}`);
+                    this.announce(`Comando não reconhecido.`);
                 }
             },
 
-            // --- VISÃO COMPUTACIONAL SIMULADA (CÂMARA) ---
+            // --- CÂMARA (Visão Computacional) ---
             async startCameraScan() {
                 const scanner = document.getElementById('cameraScanner');
                 const video = document.getElementById('videoElement');
                 const btn = document.getElementById('btnScan');
 
                 try {
-                    this.announce("A abrir câmara para análise de ambiente. Por favor, aponte para os materiais.");
+                    this.announce("A abrir câmara. Aponte para os materiais.");
                     this.videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
                     video.srcObject = this.videoStream;
                     scanner.style.display = 'block';
                     btn.style.display = 'none';
 
-                    // Simula análise via IA após 3.5 segundos
-                    setTimeout(() => {
-                        this.processCameraAI();
-                    }, 3500);
+                    setTimeout(() => { this.processCameraAI(); }, 3000);
 
                 } catch (err) {
-                    this.announce("Erro ao aceder à câmara. Verifique as permissões.");
-                    console.error("Camera error:", err);
+                    this.announce("Acesso à câmara negado ou indisponível.");
                 }
             },
 
             processCameraAI() {
-                // Parar vídeo
                 if (this.videoStream) {
                     this.videoStream.getTracks().forEach(track => track.stop());
                 }
                 document.getElementById('cameraScanner').style.display = 'none';
-                document.getElementById('btnScan').style.display = 'block';
+                document.getElementById('btnScan').style.display = 'flex';
 
-                // Simular deteção (adiciona 2 Papelões e 1 Garrafa)
                 this.updateCount('cardboard', 2);
                 this.updateCount('pet', 1);
 
-                this.announce("Análise concluída via Visão Computacional. Foram identificados e adicionados: Dois pedaços de Papelão e Uma Garrafa PET.");
-                setTimeout(() => this.showSection('ideas'), 4000);
+                this.announce("Análise concluída. Encontrados: Papelão e Garrafa PET.");
+                setTimeout(() => this.showSection('ideas'), 3500);
             },
 
 
-            // --- LÓGICA CORE DA APLICAÇÃO ---
+            // --- CORE LOGIC & UI VIEWS ---
 
             toggleTheme() {
-                this.state.theme = this.state.theme === 'light' ? 'dark' : 'light';
+                this.state.theme = document.getElementById('toggleDark').checked ? 'dark' : 'light';
+                localStorage.setItem('ecorenda_apple_theme_forced', 'true');
                 this.applyTheme();
                 this.saveToStorage();
             },
@@ -587,12 +711,8 @@
             applyTheme() {
                 if (this.state.theme === 'dark') {
                     document.documentElement.setAttribute('data-theme', 'dark');
-                    document.getElementById('themeBtn').innerText = '☀️';
-                    document.getElementById('themeBtn').setAttribute('aria-label', 'Ativar Tema Claro');
                 } else {
                     document.documentElement.removeAttribute('data-theme');
-                    document.getElementById('themeBtn').innerText = '🌙';
-                    document.getElementById('themeBtn').setAttribute('aria-label', 'Ativar Tema Escuro');
                 }
             },
 
@@ -613,30 +733,35 @@
 
                 if (shouldAnnounce) {
                     const titles = {
-                        'home': 'Ecrã Inicial, o seu inventário.',
-                        'ideas': 'Ecrã de Ideias.',
-                        'tutorial': 'Ecrã de Tutorial e Passos.',
-                        'sell': 'Ecrã de Vendas e Calculadora.',
-                        'profile': 'Ecrã de Perfil e Histórico.'
+                        'home': 'Ecrã Início. O seu inventário.',
+                        'ideas': 'Projetos de Reciclagem.',
+                        'tutorial': 'Instruções do Projeto.',
+                        'sell': 'Calculadora de Valor.',
+                        'profile': 'A sua Renda e Histórico.'
                     };
                     this.announce(titles[sectionId]);
                 }
 
                 this.saveToStorage();
-                window.scrollTo(0, 0);
+                window.scrollTo({top: 0, behavior: 'smooth'});
             },
 
             updateCount(materialId, change) {
                 const newValue = (this.state.selectedMaterials[materialId] || 0) + change;
                 if (newValue >= 0 && newValue <= 99) {
                     this.state.selectedMaterials[materialId] = newValue;
-                    document.getElementById(`count-${materialId}`).innerText = newValue;
-                    document.getElementById(`count-${materialId}`).setAttribute('aria-label', `Quantidade: ${newValue}`);
+                    const el = document.getElementById(`count-${materialId}`);
+                    if(el) {
+                        el.innerText = newValue;
+                        el.setAttribute('aria-label', `Quantidade: ${newValue}`);
+                    }
                     
                     if(change > 0) this.announce(`${this.db.materials[materialId].name} adicionada.`);
                     if(change < 0) this.announce(`${this.db.materials[materialId].name} removida.`);
                     
                     this.saveToStorage();
+                    
+                    // Se não houver elemento no ecrã (se estivermos noutro separador), não forçar re-render da home, mas os dados estão salvos.
                 }
             },
 
@@ -647,14 +772,18 @@
                     const count = this.state.selectedMaterials[key] || 0;
                     return `
                         <div class="material-item" role="listitem">
-                            <div style="display: flex; align-items: center; gap: 10px;" aria-hidden="true">
-                                <span style="font-size: 1.5rem;">${mat.icon}</span>
-                                <span>${mat.name}</span>
+                            <div style="display: flex; align-items: center; gap: 14px;" aria-hidden="true">
+                                <span style="font-size: 1.8rem;">${mat.icon}</span>
+                                <span style="font-weight: 600; font-size: 1.05rem;">${mat.name}</span>
                             </div>
                             <div class="controls">
-                                <button class="btn-icon-small" onclick="App.updateCount('${key}', -1)" aria-label="Remover uma ${mat.name}">-</button>
-                                <span id="count-${key}" style="font-weight: bold; width: 30px; text-align: center;" aria-live="polite" aria-label="${mat.name}, Quantidade: ${count}">${count}</span>
-                                <button class="btn-icon-small" onclick="App.updateCount('${key}', 1)" aria-label="Adicionar uma ${mat.name}">+</button>
+                                <button class="btn-icon-small" onclick="App.updateCount('${key}', -1)" aria-label="Remover uma ${mat.name}">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                </button>
+                                <span id="count-${key}" class="sf-rounded" style="font-weight: 600; width: 32px; text-align: center; font-size: 1.2rem;" aria-live="polite" aria-label="${mat.name}, Quantidade: ${count}">${count}</span>
+                                <button class="btn-icon-small" onclick="App.updateCount('${key}', 1)" aria-label="Adicionar uma ${mat.name}">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                </button>
                             </div>
                         </div>
                     `;
@@ -662,28 +791,25 @@
             },
 
             clearAllMaterials() {
-                if (confirm("Tem a certeza de que deseja limpar todos os materiais do inventário?")) {
+                if (confirm("Deseja mesmo esvaziar todo o seu inventário?")) {
                     for (let key in this.state.selectedMaterials) {
                         this.state.selectedMaterials[key] = 0;
                     }
                     this.updateHomeList();
                     this.saveToStorage();
-                    this.announce("Inventário esvaziado com sucesso.");
-                } else {
-                    this.announce("Ação de limpar inventário cancelada.");
+                    this.announce("O Inventário foi limpo.");
                 }
             },
 
             setFilter(filterType) {
                 this.state.activeFilter = filterType;
-                document.querySelectorAll('.filter-chip').forEach(el => {
+                document.querySelectorAll('.segment').forEach(el => {
                     el.classList.remove('active');
                     el.setAttribute('aria-selected', 'false');
                 });
                 event.target.classList.add('active');
                 event.target.setAttribute('aria-selected', 'true');
                 this.updateIdeaList();
-                this.announce(`Filtro alterado para ${event.target.innerText}`);
             },
 
             updateIdeaList() {
@@ -704,33 +830,36 @@
                 }
 
                 if (!possibleIdeas.length) {
-                    const msg = "Não há ideias para os materiais que possui. Adicione mais no Início!";
-                    list.innerHTML = `<p style="text-align:center; padding:20px; color: var(--text-muted);">${msg}</p>`;
+                    const msg = "Sem projetos compatíveis com o seu stock atual. Adicione materiais no Inventário para ver ideias.";
+                    list.innerHTML = `<div style="text-align:center; padding:40px 20px; color: var(--text-secondary);"><span style="font-size: 2.5rem; display:block; margin-bottom: 12px; opacity: 0.5;">💡</span><p style="font-weight: 500;">${msg}</p></div>`;
                     if(this.state.currentSection === 'ideas') this.announce(msg);
                     return;
                 }
 
                 list.innerHTML = possibleIdeas.map(idea => `
-                    <div class="idea-card" role="article" aria-labelledby="idea-${idea.id}">
-                        <h3 id="idea-${idea.id}" style="color: var(--primary-dark);" tabindex="0">${idea.product}</h3>
-                        <p style="margin-bottom: 5px;" tabindex="0">Potencial de Venda: <strong>~R$ ${idea.basePrice.toFixed(2)}</strong></p>
-                        <p style="font-size: 0.9rem; color: var(--text-muted);" tabindex="0">Dificuldade: ${idea.difficulty}</p>
+                    <div class="card" role="article" aria-labelledby="idea-${idea.id}" style="padding: 20px;">
+                        <h3 id="idea-${idea.id}" style="font-size: 1.3rem; font-weight: 700; letter-spacing: -0.4px;" tabindex="0">${idea.product}</h3>
                         
-                        <div style="margin-top: 15px; padding: 12px; background: var(--bg-body); border-radius: 12px; border: 1px dashed var(--primary);">
-                            <h4 style="font-size: 1rem; margin-bottom: 8px;" tabindex="0">🛠️ Materiais necessários:</h4>
-                            <ul style="margin-left: 20px; font-size: 0.9rem; color: var(--text-muted);" aria-label="Lista de materiais">
+                        <div style="display: flex; gap: 8px; margin: 12px 0;">
+                            <span class="sf-rounded" style="background: var(--bg-body); color: var(--system-green); padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 700;">~R$ ${idea.basePrice.toFixed(2)}</span>
+                            <span style="background: var(--bg-body); color: var(--text-secondary); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">${idea.difficulty}</span>
+                        </div>
+                        
+                        <div style="margin-top: 16px;">
+                            <h4 style="font-size: 0.8rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary);" tabindex="0">O que vai precisar:</h4>
+                            <ul style="margin-left: 18px; font-size: 0.95rem; color: var(--text-primary); font-weight: 500; line-height: 1.6;" aria-label="Lista de materiais">
                                 ${idea.materialsList.map(mat => `<li tabindex="0">${mat}</li>`).join('')}
                             </ul>
                         </div>
 
-                        <button class="btn btn-primary" onclick="App.viewTutorial(${idea.id})" style="padding:16px; margin-top:15px;" aria-label="Ver passo a passo para fazer ${idea.product}">
-                            VER PASSO A PASSO
+                        <button class="btn btn-secondary" onclick="App.viewTutorial(${idea.id})" style="margin-top: 20px; border-radius: 10px;" aria-label="Ver passos de construção para ${idea.product}">
+                            Ver Projeto
                         </button>
                     </div>
                 `).join('');
 
                 if(this.state.currentSection === 'ideas') {
-                    this.announce(`Foram encontradas ${possibleIdeas.length} ideias.`);
+                    this.announce(`${possibleIdeas.length} projetos disponíveis.`);
                 }
             },
 
@@ -740,24 +869,32 @@
                 const idea = this.state.currentIdea;
 
                 container.innerHTML = `
-                    <h2 style="color: var(--primary-dark); margin-bottom: 10px;" tabindex="0">${idea.product}</h2>
-                    <ul style="list-style-position: inside; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
-                        ${idea.detailedSteps.map((step, idx) => `<li tabindex="0"><strong>Passo ${idx+1}:</strong> ${step}</li>`).join('')}
-                    </ul>
-                    <div style="border-top: 1px solid var(--border); padding-top: 15px;">
-                        <h3 style="margin-bottom: 10px; font-size: 1rem;" tabindex="0">Resultado Esperado:</h3>
-                        <div style="width: 100%; height: 200px; background: var(--bg-body); border-radius: 12px; overflow: hidden;" tabindex="0">
+                    <h2 style="margin-bottom: 24px; font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px;" tabindex="0">${idea.product}</h2>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="margin-bottom: 16px; font-size: 0.85rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px;" tabindex="0">Instruções</h3>
+                        <ul style="list-style-type: none; padding: 0; color: var(--text-primary); font-weight: 500; line-height: 1.6;">
+                            ${idea.detailedSteps.map((step, idx) => `
+                                <li tabindex="0" style="display: flex; gap: 14px; margin-bottom: 20px;">
+                                    <span class="sf-rounded" style="background: var(--bg-body); color: var(--system-green); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 700; flex-shrink: 0;">${idx+1}</span>
+                                    <span style="padding-top: 2px;">${step}</span>
+                                </li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div style="background: var(--bg-body); padding: 16px; border-radius: var(--radius-md);">
+                        <h3 style="margin-bottom: 12px; font-size: 0.85rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px;" tabindex="0">Visualização</h3>
+                        <div style="width: 100%; height: 200px; background: var(--bg-card); border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center;" tabindex="0">
                              ${idea.finalPreview.image}
                         </div>
-                        <p style="font-size: 0.85rem; text-align: center; margin-top: 10px; color: var(--text-muted);" tabindex="0">${idea.finalPreview.description}</p>
+                        <p style="font-size: 0.9rem; text-align: center; margin-top: 12px; color: var(--text-secondary); font-weight: 500;" tabindex="0">${idea.finalPreview.description}</p>
                     </div>
                 `;
                 this.showSection('tutorial');
                 
-                // Leitura Automática do Tutorial
                 if(this.state.voiceEnabled) {
                     const stepsText = idea.detailedSteps.map((s,i) => `Passo ${i+1}, ${s}`).join('. ');
-                    this.announce(`Tutorial para ${idea.product}. Os passos são: ${stepsText}.`);
+                    this.announce(`A apresentar ${idea.product}. Passos: ${stepsText}.`);
                 }
             },
 
@@ -775,10 +912,9 @@
                 const finalStr = `R$ ${final.toFixed(2).replace('.', ',')}`;
                 document.getElementById('finalPrice').innerText = finalStr;
                 
-                // Debounce simple to not speak every keystroke
                 clearTimeout(this.priceTimer);
                 this.priceTimer = setTimeout(() => {
-                    this.announce(`Preço ajustado para ${finalStr}`);
+                    this.announce(`Valor ajustado para: ${finalStr}`);
                 }, 1000);
 
                 return final;
@@ -790,7 +926,7 @@
 
                 for (let mat in idea.requirements) {
                     if ((this.state.selectedMaterials[mat] || 0) < idea.requirements[mat]) {
-                        const erro = `Falta material. Não tem ${this.db.materials[mat].name} suficiente para registar.`;
+                        const erro = `Material insuficiente no inventário.`;
                         this.announce(erro);
                         alert(erro);
                         return;
@@ -805,30 +941,23 @@
                 this.state.totalEarned += price;
                 
                 const date = new Date().toLocaleDateString('pt-PT');
-                this.state.history.unshift({
-                    date: date,
-                    product: idea.product,
-                    price: price
-                });
+                this.state.history.unshift({ date: date, product: idea.product, price: price });
 
                 this.updateHomeList();
                 this.saveToStorage();
                 
                 this.triggerConfetti();
                 
-                const successMsg = `Sucesso! Venda de ${price.toFixed(2)} reais registada na carteira.`;
+                const successMsg = `Renda registada! ${price.toFixed(2)} reais foram adicionados.`;
                 this.announce(successMsg);
                 
-                setTimeout(() => {
-                    alert(successMsg);
-                    this.showSection('profile');
-                }, 500);
+                setTimeout(() => { this.showSection('profile'); }, 800);
             },
 
             copyToWhatsApp() {
                 const price = document.getElementById('finalPrice').innerText;
-                const product = this.state.currentIdea ? this.state.currentIdea.product : "artesanato ecológico";
-                const msg = `Olá! Acabei de criar um(a) lindo(a) ${product} 100% ecológico(a). O valor é apenas ${price}. Tem interesse em ficar com ele(a)? 🌿`;
+                const product = this.state.currentIdea ? this.state.currentIdea.product : "peça sustentável";
+                const msg = `Olá! 🌱 Acabei de finalizar um(a) excelente ${product} totalmente sustentável. O valor de investimento é ${price}. Tem interesse na peça?`;
                 
                 const el = document.createElement('textarea');
                 el.value = msg;
@@ -839,27 +968,27 @@
                 
                 this.triggerConfetti();
                 this.announce("Mensagem promocional copiada para a área de transferência.");
-                alert("Mensagem copiada para a área de transferência! Cole no WhatsApp.");
+                alert("Mensagem copiada com sucesso! Cole na conversa com o seu cliente.");
             },
 
             updateWallet() {
                 const saldo = `R$ ${this.state.totalEarned.toFixed(2).replace('.', ',')}`;
                 document.getElementById('totalBalance').innerText = saldo;
-                document.getElementById('totalBalance').setAttribute('aria-label', `Total ganho: ${saldo}`);
+                document.getElementById('totalBalance').setAttribute('aria-label', `Saldo Acumulado: ${saldo}`);
                 
                 const list = document.getElementById('salesHistory');
                 if (this.state.history.length === 0) {
-                    list.innerHTML = `<p style="text-align: center; color: var(--text-muted); padding: 20px;">Ainda não há vendas registadas.</p>`;
+                    list.innerHTML = `<div style="text-align: center; color: var(--text-secondary); padding: 40px 10px;"><p style="font-weight: 500;">O seu histórico está vazio.</p></div>`;
                     return;
                 }
 
                 list.innerHTML = this.state.history.map(item => `
-                    <div class="history-item" tabindex="0" aria-label="Vendeu ${item.product} por ${item.price.toFixed(2)} reais em ${item.date}">
+                    <div class="history-item" tabindex="0" aria-label="Rendimento de ${item.price.toFixed(2)} reais com ${item.product}, em ${item.date}">
                         <div>
-                            <strong>${item.product}</strong>
-                            <br><small style="color: var(--text-muted);">${item.date}</small>
+                            <strong style="font-size: 1.05rem; font-weight: 600;">${item.product}</strong>
+                            <br><small style="color: var(--text-secondary); font-size: 0.85rem; font-weight: 500;">${item.date}</small>
                         </div>
-                        <div style="color: var(--primary-dark); font-weight: bold;" aria-hidden="true">
+                        <div class="sf-rounded" style="color: var(--system-yellow); font-weight: 700; font-size: 1.15rem;" aria-hidden="true">
                             + R$ ${item.price.toFixed(2).replace('.', ',')}
                         </div>
                     </div>
@@ -867,24 +996,25 @@
             },
 
             triggerConfetti() {
-                for (let i = 0; i < 50; i++) {
+                for (let i = 0; i < 40; i++) {
                     const conf = document.createElement('div');
                     conf.className = 'confetti';
                     conf.style.left = Math.random() * 100 + 'vw';
-                    conf.style.backgroundColor = ['#22c55e', '#3b82f6', '#f59e0b', '#ec4899'][Math.floor(Math.random() * 4)];
-                    conf.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                    conf.style.top = '-10px';
+                    conf.style.backgroundColor = ['#34C759', '#FFCC00', '#007AFF'][Math.floor(Math.random() * 3)];    
+                    conf.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
                     document.body.appendChild(conf);
-                    setTimeout(() => conf.remove(), 3000);
+                    setTimeout(() => conf.remove(), 2500);
                 }
             },
 
             saveToStorage() {
-                localStorage.setItem('ecorenda_pro_a11y_state', JSON.stringify(this.state));
+                localStorage.setItem('ecorenda_apple_v2', JSON.stringify(this.state));
                 if(this.state.currentSection === 'profile') this.updateWallet();
             },
 
             loadFromStorage() {
-                const saved = localStorage.getItem('ecorenda_pro_a11y_state');
+                const saved = localStorage.getItem('ecorenda_apple_v2');
                 if (saved) {
                     try {
                         const parsed = JSON.parse(saved);
