@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoRenda - Ganhe Dinheiro e Ajude o Planeta</title>
+    <style>
+        :root {
+            --primary: #22c55e;
+            --primary-dark: #16a34a;
+            --secondary: #3b82f6;
+            --bg-body: #f0fdf4;
+            --bg-card: #ffffff;
+            --text-main: #166534;
+            --text-muted: #4b5563;
+            --border: #dcfce7;
+            --radius: 24px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding-bottom: 90px;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: var(--radius);
+            border-bottom-right-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cartões */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .idea-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .idea-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        /* Botões */
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.1s, background-color 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        /* Controlos de Materiais */
+        .material-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .material-item:last-child {
+            border-bottom: none;
+        }
+
+        .material-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .material-icon {
+            font-size: 1.5rem;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--bg-body);
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Navegação Inferior */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            padding: 10px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+
+        /* Tutorial */
+        .step-list {
+            list-style: none;
+            counter-reset: my-awesome-counter;
+        }
+        
+        .step-list li {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        
+        .step-list li::before {
+            counter-increment: my-awesome-counter;
+            content: counter(my-awesome-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Slider Range */
+        input[type="range"] {
+            width: 100%;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>EcoRenda</h1>
+        <p>Transforme lixo em dinheiro</p>
+    </header>
+
+    <main>
+        <!-- ECRÃ 1: INÍCIO (MATERIAIS) -->
+        <section id="home" class="section active">
+            <div class="card">
+                <h2 style="margin-bottom: 15px; font-size: 1.2rem;">O que tem em casa hoje?</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Adicione os materiais que tem disponíveis para vermos o que pode ser criado.</p>
+                
+                <div id="materialsListContainer">
+                    <!-- Gerado por JS -->
+                </div>
+
+                <button id="btnScan" class="btn btn-secondary" style="margin-top: 20px;">
+                    📸 SIMULAR PROCURA COM CÂMARA
+                </button>
+            </div>
+        </section>
+
+        <!-- ECRÃ 2: IDEIAS -->
+        <section id="ideas" class="section">
+            <h2 style="margin-bottom: 20px; text-align: center;">Ideias para Si</h2>
+            <div id="ideasList">
+                <!-- Gerado por JS -->
+            </div>
+        </section>
+
+        <!-- ECRÃ 3: TUTORIAL -->
+        <section id="tutorial" class="section">
+            <div class="card" id="tutorialContent">
+                <!-- Gerado por JS -->
+            </div>
+            <button class="btn btn-outline" onclick="App.showSection('ideas')" style="margin-bottom: 15px;">⬅️ Voltar às Ideias</button>
+            <button class="btn btn-primary" onclick="App.startSelling()">💰 PRONTO PARA VENDER!</button>
+        </section>
+
+        <!-- ECRÃ 4: VENDER -->
+        <section id="sell" class="section">
+            <div class="card">
+                <h2 style="margin-bottom: 15px; color: var(--primary-dark);">Calculadora de Preço</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Ajuste o valor base para incluir o seu tempo e materiais extra.</p>
+                
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span style="font-size: 1.2rem; color: var(--text-muted);">Preço Sugerido:</span><br>
+                    <span id="finalPrice" style="font-size: 2.5rem; font-weight: bold; color: var(--primary-dark);">R$ 0,00</span>
+                </div>
+
+                <label for="profitMargin">Margem de Lucro / Trabalho:</label>
+                <input type="range" id="profitMargin" min="0" max="100" step="5" value="20" oninput="App.updatePrice()">
+                <div style="display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.8rem;">
+                    <span>Sem lucro extra</span>
+                    <span>+100%</span>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid var(--border); margin: 25px 0;">
+
+                <h3 style="margin-bottom: 15px; font-size: 1.1rem;">Divulgar</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Copie a mensagem pronta e envie para os seus contactos no WhatsApp.</p>
+                <button class="btn btn-primary" onclick="App.copyToWhatsApp()" style="background-color: #25D366; box-shadow: 0 4px 6px rgba(37, 211, 102, 0.3);">
+                    💬 COPIAR PARA WHATSAPP
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="App.showSection('home')" id="nav-home">
+            <span class="nav-icon">🏠</span>
+            <span>Início</span>
+        </div>
+        <div class="nav-item" onclick="App.showSection('ideas')" id="nav-ideas">
+            <span class="nav-icon">💡</span>
+            <span>Ideias</span>
+        </div>
+        <div class="nav-item" onclick="App.showSection('sell')" id="nav-sell">
+            <span class="nav-icon">🛒</span>
+            <span>Vender</span>
+        </div>
+    </nav>
+
+    <script>
+        const App = {
+            state: {
+                currentSection: 'home',
+                selectedMaterials: {
+                    pet: 0,
+                    cardboard: 0,
+                    can: 0,
+                    clothes: 0
+                },
+                currentIdea: null
+            },
+
+            db: {
+                materials: {
+                    pet: { name: 'Garrafa PET', icon: '🍾' },
+                    cardboard: { name: 'Papelão', icon: '📦' },
+                    can: { name: 'Lata', icon: '🥫' },
+                    clothes: { name: 'Roupa Velha', icon: '👕' }
+                },
+                // Banco de dados de ideias ATUALIZADO com materialsList e Imagens SVG
+                ideas: [
+                    { 
+                        id: 1, 
+                        material: 'pet', 
+                        product: 'Vaso Auto-irrigável', 
+                        difficulty: 'Fácil', 
+                        basePrice: 15,
+                        materialsList: [
+                            "1 Garrafa PET",
+                            "Tesoura ou X-ato",
+                            "Pedaço de Fio/Barbante",
+                            "Terra e uma pequena planta",
+                            "Água"
+                        ],
+                        detailedSteps: [
+                            "Pegue numa garrafa PET limpa e corte-a ao meio.",
+                            "Faça um pequeno furo na tampa.",
+                            "Passe um fio ou barbante pelo furo.",
+                            "Coloque água na parte inferior.",
+                            "Encaixe a parte superior virada para baixo.",
+                            "Coloque terra e a planta."
+                        ],
+                        finalPreview: {
+                            description: "Um vaso sustentável com reservatório de água na base.",
+                            image: `<svg viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="100" cy="100" r="90" fill="#dcfce7" />
+                                <!-- Água -->
+                                <path d="M 65 130 L 135 130 L 135 160 Q 135 170 125 170 L 75 170 Q 65 170 65 160 Z" fill="#60a5fa" opacity="0.6"/>
+                                <!-- Fundo da Garrafa -->
+                                <path d="M 60 110 L 60 160 Q 60 175 75 175 L 125 175 Q 140 175 140 160 L 140 110 Z" fill="none" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
+                                <!-- Fio/Barbante -->
+                                <path d="M 100 135 L 100 160" stroke="#d97706" stroke-width="3" stroke-dasharray="4,2"/>
+                                <!-- Topo da garrafa invertido -->
+                                <path d="M 60 100 L 140 100 L 115 145 L 85 145 Z" fill="#bbf7d0" opacity="0.8"/>
+                                <path d="M 60 100 L 140 100 L 115 145 L 85 145 Z" fill="none" stroke="#22c55e" stroke-width="3"/>
+                                <!-- Terra -->
+                                <path d="M 65 100 L 135 100 L 120 125 L 80 125 Z" fill="#78350f" opacity="0.9"/>
+                                <!-- Planta -->
+                                <path d="M 100 100 Q 90 70 115 50" fill="none" stroke="#16a34a" stroke-width="5" stroke-linecap="round"/>
+                                <path d="M 100 85 Q 80 65 90 40" fill="none" stroke="#16a34a" stroke-width="5" stroke-linecap="round"/>
+                                <path d="M 115 50 Q 125 40 135 55 Q 125 65 115 50 Z" fill="#22c55e"/>
+                                <path d="M 90 40 Q 80 30 70 45 Q 80 55 90 40 Z" fill="#22c55e"/>
+                                <path d="M 103 70 Q 115 65 120 75 Q 110 85 103 70 Z" fill="#4ade80"/>
+                            </svg>`
+                        }
+                    },
+                    { 
+                        id: 2, 
+                        material: 'cardboard', 
+                        product: 'Organizador de Secretária', 
+                        difficulty: 'Médio', 
+                        basePrice: 25,
+                        materialsList: [
+                            "Pedaços de Papelão resistente",
+                            "Tesoura ou X-ato",
+                            "Cola Quente (ou cola branca forte)",
+                            "Tecido, papel autocolante ou tinta para decorar"
+                        ],
+                        detailedSteps: [
+                            "Corte o papelão em partes iguais.",
+                            "Monte divisórias com cola quente.",
+                            "Forre com tecido ou pinte ao seu gosto.",
+                            "Deixe secar completamente antes de usar."
+                        ],
+                        finalPreview: {
+                            description: "Organizador com divisórias para escritório ou estudo.",
+                            image: `<svg viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="100" cy="100" r="90" fill="#fef3c7" />
+                                <!-- Cadernos/Papeis atrás -->
+                                <rect x="70" y="40" width="40" height="60" fill="#ef4444" rx="2" transform="rotate(-10 90 70)"/>
+                                <rect x="95" y="35" width="40" height="65" fill="#3b82f6" rx="2" transform="rotate(5 115 65)"/>
+                                <!-- Compartimento Traseiro -->
+                                <rect x="50" y="80" width="100" height="70" rx="4" fill="#d97706" />
+                                <!-- Canetas na frente -->
+                                <rect x="65" y="60" width="6" height="50" fill="#10b981" rx="2" transform="rotate(-15 68 85)"/>
+                                <rect x="80" y="65" width="6" height="45" fill="#fbbf24" rx="2"/>
+                                <!-- Régua -->
+                                <rect x="125" y="70" width="12" height="60" fill="#fcd34d" transform="rotate(15 131 100)"/>
+                                <line x1="120" y1="80" x2="125" y2="80" stroke="#b45309" stroke-width="2"/>
+                                <line x1="123" y1="90" x2="128" y2="90" stroke="#b45309" stroke-width="2"/>
+                                <!-- Compartimentos Frontais -->
+                                <rect x="55" y="110" width="42" height="45" rx="3" fill="#f59e0b" />
+                                <rect x="103" y="110" width="42" height="45" rx="3" fill="#fbbf24" />
+                                <!-- Clipes / Detalhes frente -->
+                                <path d="M 115 135 L 130 135 L 130 145 L 115 145 Z" fill="#e5e7eb" rx="2"/>
+                                <path d="M 65 140 A 5 5 0 1 1 75 140 A 5 5 0 1 1 65 140" fill="none" stroke="#4b5563" stroke-width="2"/>
+                            </svg>`
+                        }
+                    },
+                    { 
+                        id: 3, 
+                        material: 'can', 
+                        product: 'Porta-Lápis Decorativo', 
+                        difficulty: 'Fácil', 
+                        basePrice: 10,
+                        materialsList: [
+                            "1 Lata vazia e limpa (milho, ervilha, etc.)",
+                            "Lixa (para retirar partes cortantes do rebordo)",
+                            "Tinta, EVA ou papel para decorar",
+                            "Cola apropriada"
+                        ],
+                        detailedSteps: [
+                            "Lave bem a lata e remova os rótulos.",
+                            "Passe a lixa no rebordo para evitar cortes.",
+                            "Pinte ou cole o material decorativo em volta.",
+                            "Deixe secar por aproximadamente 2 horas."
+                        ],
+                        finalPreview: {
+                            description: "Porta-lápis decorado, seguro e reutilizável.",
+                            image: `<svg viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="100" cy="100" r="90" fill="#e0e7ff" />
+                                <!-- Lápis e Pincel (Atrás) -->
+                                <g transform="translate(75, 40) rotate(-20)">
+                                    <rect x="0" y="0" width="10" height="70" fill="#fbbf24" rx="1"/>
+                                    <polygon points="0,0 10,0 5,-15" fill="#fca5a5"/>
+                                    <polygon points="3,-7 7,-7 5,-15" fill="#374151"/>
+                                </g>
+                                <g transform="translate(100, 30) rotate(5)">
+                                    <rect x="0" y="0" width="10" height="80" fill="#34d399" rx="1"/>
+                                    <polygon points="0,0 10,0 5,-15" fill="#fca5a5"/>
+                                    <polygon points="3,-7 7,-7 5,-15" fill="#374151"/>
+                                </g>
+                                <g transform="translate(125, 45) rotate(25)">
+                                    <rect x="0" y="0" width="8" height="60" fill="#ef4444" rx="2"/>
+                                    <rect x="-1" y="-12" width="10" height="12" fill="#9ca3af"/>
+                                    <path d="M -1 -12 Q 4 -30 9 -12 Z" fill="#fcd34d"/>
+                                </g>
+                                <!-- Corpo da Lata -->
+                                <path d="M 60 90 L 60 160 Q 60 170 100 170 Q 140 170 140 160 L 140 90 Z" fill="#c7d2fe"/>
+                                <ellipse cx="100" cy="90" rx="40" ry="12" fill="#a5b4fc"/>
+                                <ellipse cx="100" cy="90" rx="36" ry="9" fill="#4f46e5" opacity="0.3"/>
+                                <!-- Faixa Decorativa -->
+                                <path d="M 60 115 L 140 115 L 140 145 L 60 145 Z" fill="#ec4899"/>
+                                <!-- Zig-zag decorativo -->
+                                <path d="M 60 120 L 75 135 L 90 120 L 105 135 L 120 120 L 135 135 L 140 130" fill="none" stroke="#fdf2f8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M 60 145 Q 100 155 140 145" fill="none" stroke="#c7d2fe" stroke-width="2"/>
+                            </svg>`
+                        }
+                    },
+                    {
+                        id: 4,
+                        material: 'clothes',
+                        product: 'Saco Ecológico (EcoBag)',
+                        difficulty: 'Médio',
+                        basePrice: 20,
+                        materialsList: [
+                            "1 T-shirt velha",
+                            "Tesoura (preferencialmente para tecido)",
+                            "Agulha e linha (opcional, é possível fazer apenas com nós)"
+                        ],
+                        detailedSteps: [
+                            "Corte as mangas da t-shirt.",
+                            "Corte a zona do pescoço para criar a abertura/alças.",
+                            "Costure a parte inferior (ou corte franjas e dê nós apertados).",
+                            "Vire do avesso para esconder os nós ou costuras, e está pronta a usar."
+                        ],
+                        finalPreview: {
+                            description: "Saco reutilizável feito a partir de roupa antiga.",
+                            image: `<svg viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="100" cy="100" r="90" fill="#fce7f3" />
+                                <!-- Alças -->
+                                <path d="M 75 80 Q 75 35 100 35 Q 125 35 125 80" fill="none" stroke="#db2777" stroke-width="12" stroke-linecap="round"/>
+                                <path d="M 55 80 Q 55 45 100 45 Q 145 45 145 80" fill="none" stroke="#fbcfe8" stroke-width="12" stroke-linecap="round"/>
+                                <!-- Corpo do Saco -->
+                                <path d="M 55 80 L 145 80 L 135 150 Q 133 165 100 165 Q 67 165 65 150 Z" fill="#db2777"/>
+                                <!-- Símbolo de Reciclagem (Folhas) -->
+                                <path d="M 90 120 Q 100 100 110 120 Q 100 140 90 120 Z" fill="#fdf2f8"/>
+                                <path d="M 100 110 Q 120 95 110 115 Q 90 130 100 110 Z" fill="#fdf2f8"/>
+                                <path d="M 100 130 Q 80 145 90 125 Q 110 110 100 130 Z" fill="#fdf2f8"/>
+                                <!-- Franjas / Costura em baixo -->
+                                <line x1="75" y1="162" x2="75" y2="175" stroke="#db2777" stroke-width="3" stroke-linecap="round"/>
+                                <line x1="87" y1="164" x2="87" y2="178" stroke="#db2777" stroke-width="3" stroke-linecap="round"/>
+                                <line x1="100" y1="165" x2="100" y2="180" stroke="#db2777" stroke-width="3" stroke-linecap="round"/>
+                                <line x1="113" y1="164" x2="113" y2="178" stroke="#db2777" stroke-width="3" stroke-linecap="round"/>
+                                <line x1="125" y1="162" x2="125" y2="175" stroke="#db2777" stroke-width="3" stroke-linecap="round"/>
+                            </svg>`
+                        }
+                    }
+                ]
+            },
+
+            init() {
+                this.loadFromStorage();
+                this.updateHomeList();
+                this.setupEventListeners();
+                this.showSection(this.state.currentSection);
+            },
+
+            showSection(sectionId) {
+                // Ocultar todas as secções
+                document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+                
+                // Mostrar a secção desejada
+                document.getElementById(sectionId).classList.add('active');
+                this.state.currentSection = sectionId;
+
+                // Atualizar barra de navegação
+                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                const navItem = document.getElementById(`nav-${sectionId}`);
+                if (navItem) navItem.classList.add('active');
+
+                // Lógica específica por ecrã
+                if (sectionId === 'ideas') this.updateIdeaList();
+                if (sectionId === 'sell' && this.state.currentIdea) this.updatePrice();
+
+                this.saveToStorage();
+                window.scrollTo(0, 0);
+            },
+
+            updateCount(materialId, change) {
+                const newValue = this.state.selectedMaterials[materialId] + change;
+                if (newValue >= 0 && newValue <= 50) {
+                    this.state.selectedMaterials[materialId] = newValue;
+                    document.getElementById(`count-${materialId}`).innerText = newValue;
+                    this.saveToStorage();
+                }
+            },
+
+            updateHomeList() {
+                const container = document.getElementById('materialsListContainer');
+                container.innerHTML = Object.keys(this.db.materials).map(key => {
+                    const mat = this.db.materials[key];
+                    return `
+                        <div class="material-item">
+                            <div class="material-info">
+                                <span class="material-icon">${mat.icon}</span>
+                                <span>${mat.name}</span>
+                            </div>
+                            <div class="controls">
+                                <button class="btn-icon" onclick="App.updateCount('${key}', -1)">-</button>
+                                <span id="count-${key}" style="font-weight: bold; width: 20px; text-align: center;">${this.state.selectedMaterials[key]}</span>
+                                <button class="btn-icon" onclick="App.updateCount('${key}', 1)">+</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            // FUNÇÃO ATUALIZADA: Agora exibe a lista de materiais em ecrã
+            updateIdeaList() {
+                const list = document.getElementById('ideasList');
+                const available = Object.keys(this.state.selectedMaterials).filter(id => this.state.selectedMaterials[id] > 0);
+
+                if (!available.length) {
+                    list.innerHTML = `<p style="text-align:center; padding:20px; color: var(--text-muted);">Vá ao <b>Início</b> e adicione os materiais que tem disponíveis!</p>`;
+                    return;
+                }
+
+                const ideas = this.db.ideas.filter(i => available.includes(i.material));
+
+                if (ideas.length === 0) {
+                    list.innerHTML = `<p style="text-align:center; padding:20px; color: var(--text-muted);">Ainda não temos ideias para esses materiais. Tente adicionar Garrafas ou Papelão!</p>`;
+                    return;
+                }
+
+                list.innerHTML = ideas.map(idea => `
+                    <div class="idea-card">
+                        <h3>${idea.product}</h3>
+                        <p>Preço Sugerido: <strong>R$ ${idea.basePrice.toFixed(2)}</strong></p>
+                        <p>Dificuldade: ${idea.difficulty}</p>
+                        
+                        <!-- Nova secção de materiais -->
+                        <div style="margin-top: 15px; padding: 12px; background: var(--bg-body); border-radius: 12px; border: 1px dashed var(--primary);">
+                            <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 8px;">🛠️ Materiais necessários:</h4>
+                            <ul style="margin-left: 20px; font-size: 0.95rem; color: var(--text-muted);">
+                                ${idea.materialsList.map(mat => `<li style="margin-bottom: 4px;">${mat}</li>`).join('')}
+                            </ul>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="App.viewTutorial(${idea.id})" style="padding:15px; margin-top:20px;">VER PASSO A PASSO</button>
+                    </div>
+                `).join('');
+            },
+
+            viewTutorial(ideaId) {
+                this.state.currentIdea = this.db.ideas.find(i => i.id === ideaId);
+                this.renderTutorial();
+                this.showSection('tutorial');
+            },
+
+            renderTutorial() {
+                const idea = this.state.currentIdea;
+                const container = document.getElementById('tutorialContent');
+                
+                if (!idea) return;
+
+                container.innerHTML = `
+                    <h2 style="color: var(--primary-dark); margin-bottom: 10px;">${idea.product}</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Siga as instruções abaixo com cuidado.</p>
+                    
+                    <ul class="step-list">
+                        ${idea.detailedSteps.map(step => `<li>${step}</li>`).join('')}
+                    </ul>
+
+                    <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border);">
+                        <h3 style="margin-bottom: 10px;">Resultado Esperado:</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">${idea.finalPreview.description}</p>
+                        <div style="width: 100%; height: 200px; background-color: var(--bg-body); border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); font-style: italic; color: var(--text-muted); overflow: hidden;">
+                             ${idea.finalPreview.image}
+                        </div>
+                    </div>
+                `;
+            },
+
+            startSelling() {
+                if (!this.state.currentIdea) {
+                    alert("Primeiro, escolha um projeto nas Ideias!");
+                    this.showSection('ideas');
+                    return;
+                }
+                this.showSection('sell');
+            },
+
+            updatePrice() {
+                if (!this.state.currentIdea) return;
+                
+                const base = this.state.currentIdea.basePrice;
+                const margin = parseInt(document.getElementById('profitMargin').value);
+                const final = base + (base * (margin / 100));
+                
+                document.getElementById('finalPrice').innerText = `R$ ${final.toFixed(2).replace('.', ',')}`;
+            },
+
+            copyToWhatsApp() {
+                const price = document.getElementById('finalPrice').innerText;
+                const product = this.state.currentIdea ? this.state.currentIdea.product : "meu artesanato ecológico";
+                const msg = `Olá! Estou a vender um(a) ${product} feito com material reciclado por apenas ${price}. Tem interesse em encomendar?`;
+                
+                // Tenta copiar para a área de transferência
+                const el = document.createElement('textarea');
+                el.value = msg;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                
+                alert("Mensagem copiada! Agora é só colar no WhatsApp do seu cliente.");
+            },
+
+            setupEventListeners() {
+                document.getElementById('btnScan').addEventListener('click', () => {
+                    alert("A simular procura de materiais pela câmara... Encontrámos 3 Garrafas PET e 1 Lata!");
+                    this.updateCount('pet', 3);
+                    this.updateCount('can', 1);
+                    this.showSection('ideas');
+                });
+            },
+
+            saveToStorage() {
+                localStorage.setItem('ecorenda_v5_state', JSON.stringify(this.state));
+            },
+
+            loadFromStorage() {
+                const saved = localStorage.getItem('ecorenda_v5_state');
+                if (saved) {
+                    try {
+                        this.state = JSON.parse(saved);
+                    } catch(e) {
+                        console.error("Erro ao carregar dados salvos.", e);
+                    }
+                }
+            }
+        };
+
+        window.onload = () => App.init();
+    </script>
+</body>
+</html>
