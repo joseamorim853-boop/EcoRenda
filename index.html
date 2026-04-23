@@ -12,22 +12,14 @@
     <style>
         /* Apple Human Interface Guidelines - System Colors & Theming */
         :root {
-            /* Fundo Secundário (Grouped Background) usado para o corpo da App */
             --bg-body: #F2F2F7;
-            /* Fundo Principal (System Background) usado para Cartões */
             --bg-card: #FFFFFF;
-            
-            /* Textos */
             --text-primary: #000000;
             --text-secondary: rgba(60, 60, 67, 0.6);
-            
-            /* Cores de Destaque */
             --system-green: #34C759;
             --system-yellow: #FFCC00;
             --system-blue: #007AFF;
             --system-red: #FF3B30;
-            
-            /* UI Elements */
             --separator: rgba(60, 60, 67, 0.29);
             --glass-bg: rgba(255, 255, 255, 0.75);
             --radius-lg: 20px;
@@ -36,24 +28,15 @@
             --focus-ring: 4px solid var(--system-green);
         }
 
-        /* Dark Mode Nativo da Apple */
         [data-theme="dark"] {
-            /* Preto Puro para poupar bateria OLED */
             --bg-body: #000000;
-            /* Fundo Secundário para elevação (Cards) */
             --bg-card: #1C1C1E;
-            
-            /* Textos */
             --text-primary: #FFFFFF;
             --text-secondary: rgba(235, 235, 245, 0.6);
-            
-            /* Cores de Destaque Adaptadas para Dark Mode */
             --system-green: #30D158;
             --system-yellow: #FFD60A;
             --system-blue: #0A84FF;
             --system-red: #FF453A;
-            
-            /* UI Elements */
             --separator: rgba(84, 84, 88, 0.65);
             --glass-bg: rgba(28, 28, 30, 0.75);
             --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -63,246 +46,98 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            /* Fonte Oficial Apple: San Francisco */
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
             transition: background-color 0.3s cubic-bezier(0.25, 0.1, 0.25, 1), color 0.3s ease;
         }
 
-        *:focus-visible {
-            outline: var(--focus-ring);
-            outline-offset: 2px;
-            border-radius: 8px;
-        }
+        *:focus-visible { outline: var(--focus-ring); outline-offset: 2px; border-radius: 8px; }
 
-        /* Fonte arredondada para números (SF Pro Rounded) */
         .sf-rounded {
             font-family: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
             letter-spacing: -0.5px;
         }
 
-        body {
-            background-color: var(--bg-body);
-            color: var(--text-primary);
-            padding-bottom: 110px;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
+        body { background-color: var(--bg-body); color: var(--text-primary); padding-bottom: 110px; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
 
-        .sr-only {
-            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
-        }
-
-        /* Glassmorphism Header (Vibrancy) */
         header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background-color: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 0.5px solid var(--separator);
-            padding: 16px 20px;
-            padding-top: calc(env(safe-area-inset-top) + 20px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            position: sticky; top: 0; z-index: 50; background-color: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 0.5px solid var(--separator); padding: 16px 20px;
+            padding-top: calc(env(safe-area-inset-top) + 20px); display: flex; justify-content: space-between; align-items: center;
         }
 
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .header-logo {
-            width: 36px;
-            height: 36px;
-            background: var(--system-green);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(52, 199, 89, 0.3);
-        }
-
-        .header-title-box {
-            display: flex;
-            flex-direction: column;
-        }
-
-        header h1 { 
-            font-size: 1.4rem; 
-            font-weight: 700; 
-            letter-spacing: -0.5px;
-            line-height: 1.1;
-        }
-
-        header p { 
-            font-size: 0.8rem; 
-            color: var(--text-secondary); 
-            font-weight: 500;
-        }
-
+        .header-brand { display: flex; align-items: center; gap: 12px; }
+        .header-logo { width: 36px; height: 36px; background: var(--system-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(52, 199, 89, 0.3); }
+        .header-title-box { display: flex; flex-direction: column; }
+        header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.5px; line-height: 1.1; }
+        header p { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; }
         .header-controls { display: flex; gap: 12px; }
-        .icon-btn {
-            background: var(--bg-card);
-            border: none;
-            color: var(--system-green);
-            width: 36px; height: 36px;
-            border-radius: 50%; cursor: pointer; font-size: 1.1rem;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        }
+        .icon-btn { background: var(--bg-card); border: none; color: var(--system-green); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 
         main { padding: 20px; max-width: 600px; margin: 0 auto; }
-
         .section { display: none; animation: iosFadeIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .section.active { display: block; }
+        @keyframes iosFadeIn { from { opacity: 0; transform: translateY(12px) scale(0.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-        @keyframes iosFadeIn {
-            from { opacity: 0; transform: translateY(12px) scale(0.99); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
+        .large-title { font-size: 2.1rem; font-weight: 700; letter-spacing: -0.8px; margin-bottom: 20px; padding-left: 4px; }
+        .card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 24px; box-shadow: var(--shadow-subtle); }
+        .step-card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 16px; box-shadow: var(--shadow-subtle); border: 1px solid var(--separator); }
+        
+        .step-image { width: 100%; height: 180px; background: var(--bg-body); border-radius: 12px; margin-top: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--separator); }
 
-        /* Large Titles (Apple Style) */
-        .large-title {
-            font-size: 2.1rem;
-            font-weight: 700;
-            letter-spacing: -0.8px;
-            margin-bottom: 20px;
-            padding-left: 4px;
-        }
-
-        /* iOS Cards and Lists */
-        .card {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-subtle);
-        }
-
-        /* Buttons (Apple Style) */
-        .btn {
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            width: 100%; padding: 16px; border: none; border-radius: var(--radius-md);
-            font-size: 1.05rem; font-weight: 600; cursor: pointer;
-            transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
-        }
+        .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 16px; border: none; border-radius: var(--radius-md); font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s; }
         .btn:active { transform: scale(0.96); opacity: 0.8; }
         .btn-primary { background-color: var(--system-green); color: #fff; }
         .btn-secondary { background-color: var(--bg-body); color: var(--system-green); }
         .btn-destructive { background-color: transparent; color: var(--system-red); font-weight: 500;}
 
-        /* List Items */
-        .material-item {
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 16px 0; border-bottom: 0.5px solid var(--separator);
-        }
+        .material-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 0.5px solid var(--separator); }
         .material-item:last-child { border-bottom: none; }
-        
         .controls { display: flex; align-items: center; gap: 16px; }
-        .btn-icon-small {
-            width: 32px; height: 32px; border-radius: 50%; border: none;
-            background-color: var(--bg-body); color: var(--text-primary);
-            font-size: 1.2rem; font-weight: 500; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .btn-icon-small { width: 32px; height: 32px; border-radius: 50%; border: none; background-color: var(--bg-body); color: var(--text-primary); font-size: 1.2rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .btn-icon-small:active { background-color: var(--separator); }
 
-        /* Bottom Nav (Glassmorphism) */
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; right: 0; 
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(180%); 
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            display: flex; justify-content: space-around; 
-            padding: 10px 0; padding-bottom: calc(env(safe-area-inset-bottom) + 12px);
-            border-top: 0.5px solid var(--separator); z-index: 100;
-        }
-        .nav-item { 
-            display: flex; flex-direction: column; align-items: center; 
-            color: var(--text-secondary); font-size: 0.75rem; font-weight: 500; 
-            padding: 6px 10px; cursor: pointer; flex: 1; 
-        }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); display: flex; justify-content: space-around; padding: 10px 0; padding-bottom: calc(env(safe-area-inset-bottom) + 12px); border-top: 0.5px solid var(--separator); z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); font-size: 0.75rem; font-weight: 500; padding: 6px 10px; cursor: pointer; flex: 1; }
         .nav-item.active { color: var(--system-green); }
         .nav-icon { font-size: 1.4rem; margin-bottom: 4px; }
 
-        /* iOS Segmented Control */
-        .segmented-control {
-            display: flex; background: var(--separator); padding: 2px; 
-            border-radius: 9px; margin-bottom: 24px;
-        }
-        .segment {
-            flex: 1; text-align: center; padding: 6px 12px; border-radius: 7px; 
-            font-weight: 600; font-size: 0.85rem; color: var(--text-primary);
-            cursor: pointer; border: none; background: transparent;
-        }
-        .segment.active {
-            background: var(--bg-card); 
-            box-shadow: 0 3px 8px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.04);
-        }
+        .segmented-control { display: flex; background: var(--separator); padding: 2px; border-radius: 9px; margin-bottom: 24px; }
+        .segment { flex: 1; text-align: center; padding: 6px 12px; border-radius: 7px; font-weight: 600; font-size: 0.85rem; color: var(--text-primary); cursor: pointer; border: none; background: transparent; }
+        .segment.active { background: var(--bg-card); box-shadow: 0 3px 8px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.04); }
 
-        /* Inputs */
         .input-group { margin-bottom: 18px; }
         .input-group label { display: block; margin-bottom: 8px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;}
-        .input-group input { 
-            width: 100%; padding: 16px; border-radius: var(--radius-md); 
-            border: none; background: var(--bg-body); color: var(--text-primary); 
-            font-size: 1.1rem; font-weight: 500;
-        }
+        .input-group input { width: 100%; padding: 16px; border-radius: var(--radius-md); border: none; background: var(--bg-body); color: var(--text-primary); font-size: 1.1rem; font-weight: 500; }
         .input-group input:focus { outline: var(--focus-ring); background: var(--bg-card); box-shadow: 0 0 0 1px var(--separator); }
 
-        /* Scanner Overlay */
         #cameraScanner { width: 100%; height: 250px; background: #000; border-radius: var(--radius-lg); overflow: hidden; position: relative; display: none; margin-bottom: 20px;}
         #videoElement { width: 100%; height: 100%; object-fit: cover; }
         .scan-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; box-shadow: inset 0 0 0 4px var(--system-green); animation: pulse 2s infinite; }
         @keyframes pulse { 0% { box-shadow: inset 0 0 0 4px var(--system-green); } 50% { box-shadow: inset 0 0 0 12px rgba(52, 199, 89, 0.4); } 100% { box-shadow: inset 0 0 0 4px var(--system-green); } }
 
-        /* A11y Toggles (Apple Style Switches) */
-        .apple-toggle {
-            appearance: none; width: 51px; height: 31px; background: var(--separator); 
-            border-radius: 16px; position: relative; cursor: pointer; outline: none;
-            transition: background 0.3s;
-        }
-        .apple-toggle::after {
-            content: ''; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px;
-            background: #fff; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.3, 0.8, 0.4, 1.2);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
+        .apple-toggle { appearance: none; width: 51px; height: 31px; background: var(--separator); border-radius: 16px; position: relative; cursor: pointer; outline: none; transition: background 0.3s; }
+        .apple-toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; background: #fff; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.3, 0.8, 0.4, 1.2); box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         .apple-toggle:checked { background: var(--system-green); }
         .apple-toggle:checked::after { transform: translateX(20px); }
 
-        /* Modal Acessibilidade */
-        .a11y-modal { 
-            position: fixed; bottom: 120px; left: 20px; right: 20px; background: var(--glass-bg); 
-            backdrop-filter: blur(30px); border: 0.5px solid var(--separator); 
-            border-radius: var(--radius-lg); padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); 
-            z-index: 1000; display: none;
-        }
-
+        .a11y-modal { position: fixed; bottom: 120px; left: 20px; right: 20px; background: var(--glass-bg); backdrop-filter: blur(30px); border: 0.5px solid var(--separator); border-radius: var(--radius-lg); padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); z-index: 1000; display: none; }
         .voice-listening { background-color: var(--system-red) !important; color: white !important; animation: micPulse 1.5s infinite; }
         @keyframes micPulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
         
         .confetti { position: fixed; width: 8px; height: 8px; border-radius: 50%; z-index: 9999; animation: fall 3s ease-in forwards; }
         @keyframes fall { to { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
-
-        /* Utilitários Extras */
-        .wallet-highlight {
-            color: var(--system-yellow);
-        }
+        .wallet-highlight { color: var(--system-yellow); }
     </style>
 </head>
 <body>
 
-    <!-- Região Viva para Leitores de Tela (TalkBack/VoiceOver) -->
     <div id="sr-announcer" aria-live="assertive" class="sr-only"></div>
 
     <header role="banner">
         <div class="header-brand">
-            <!-- Logotipo: Folha minimalista com caule ascendente -->
             <div class="header-logo" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="22" height="22" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22 V8" />
@@ -325,24 +160,18 @@
     <main role="main">
         <!-- ECRÃ 1: INÍCIO (MATERIAIS) -->
         <section id="home" class="section active" role="region" aria-labelledby="home-title">
-            
             <h2 id="home-title" class="large-title" tabindex="0">Inventário</h2>
-
-            <button id="btnScan" class="btn btn-secondary" style="margin-bottom: 24px;" onclick="App.startCameraScan()" aria-label="Abrir câmara para identificar materiais usando visão computacional">
+            <button id="btnScan" class="btn btn-secondary" style="margin-bottom: 24px;" onclick="App.startCameraScan()" aria-label="Abrir câmera para identificar materiais usando visão computacional">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                 Escanear Materiais
             </button>
-
             <div id="cameraScanner" aria-hidden="true">
                 <video id="videoElement" autoplay playsinline></video>
                 <div class="scan-overlay"></div>
             </div>
-
             <div class="card">
-                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 16px; line-height: 1.4;" tabindex="0">Adicione os recicláveis que tem disponíveis. O sistema indicará projetos lucrativos.</p>
-                
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 16px; line-height: 1.4;" tabindex="0">Adicione os recicláveis que você tem disponíveis. O sistema indicará projetos lucrativos.</p>
                 <div id="materialsListContainer" role="list" aria-label="Lista de materiais disponíveis"></div>
-
                 <button class="btn btn-destructive" style="margin-top: 16px;" onclick="App.clearAllMaterials()" aria-label="Limpar todos os materiais do inventário">
                     Esvaziar Inventário
                 </button>
@@ -352,21 +181,18 @@
         <!-- ECRÃ 2: IDEIAS -->
         <section id="ideas" class="section" role="region" aria-labelledby="ideas-title">
             <h2 id="ideas-title" class="large-title" tabindex="0">Projetos</h2>
-            
             <div class="segmented-control" id="ideaFilters" role="tablist" aria-label="Filtros de ideias">
                 <button class="segment active" role="tab" aria-selected="true" onclick="App.setFilter('all')">Todos</button>
                 <button class="segment" role="tab" aria-selected="false" onclick="App.setFilter('easy')">Mais Fáceis</button>
                 <button class="segment" role="tab" aria-selected="false" onclick="App.setFilter('profit')">Lucrativos</button>
             </div>
-
             <div id="ideasList" aria-live="polite"></div>
         </section>
 
         <!-- ECRÃ 3: TUTORIAL -->
         <section id="tutorial" class="section" role="region" aria-labelledby="tutorial-title">
-            <div class="card" id="tutorialContent"></div>
-            
-            <div style="display: flex; gap: 12px; margin-bottom: 30px;">
+            <div id="tutorialContent"></div>
+            <div style="display: flex; gap: 12px; margin-bottom: 30px; margin-top: 10px;">
                 <button class="btn btn-secondary" style="flex: 1;" onclick="App.showSection('ideas')" aria-label="Voltar para a lista de ideias">Voltar</button>
                 <button class="btn btn-primary" style="flex: 2;" onclick="App.startSelling()" aria-label="Ir para a área de vendas deste produto">Confirmar Venda</button>
             </div>
@@ -375,52 +201,44 @@
         <!-- ECRÃ 4: VENDER -->
         <section id="sell" class="section" role="region" aria-labelledby="sell-title">
             <h2 id="sell-title" class="large-title" tabindex="0">Cálculo Justo</h2>
-            
             <div class="card">
                 <div class="input-group">
                     <label for="baseCost">Custos Adicionais (Tintas, cola... em R$):</label>
                     <input type="number" id="baseCost" value="0" step="0.5" oninput="App.calculatePrice()" aria-describedby="cost-desc">
                 </div>
-                
                 <div class="input-group">
                     <label for="timeSpent">Tempo de Produção (Horas):</label>
                     <input type="number" id="timeSpent" value="1" step="0.5" oninput="App.calculatePrice()">
                 </div>
-
                 <div class="input-group">
                     <label for="hourlyRate">Valor da sua hora (R$):</label>
                     <input type="number" id="hourlyRate" value="15" step="1" oninput="App.calculatePrice()">
                 </div>
-                
                 <div style="text-align: center; margin: 32px 0; padding: 24px; background: var(--bg-body); border-radius: var(--radius-lg);" aria-live="polite">
                     <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Preço Recomendado</span><br>
                     <span id="finalPrice" class="sf-rounded" style="font-size: 3.5rem; font-weight: 700; color: var(--system-green); display: inline-block; margin-top: 4px;">R$ 0,00</span>
                 </div>
-
-                <button class="btn btn-primary" onclick="App.confirmSale()" style="margin-bottom: 8px;" aria-label="Registar venda e descontar materiais do inventário">
-                    Registar Venda
+                <button class="btn btn-primary" onclick="App.confirmSale()" style="margin-bottom: 8px;" aria-label="Registrar venda e descontar materiais do inventário">
+                    Registrar Venda
                 </button>
             </div>
-
             <div class="card">
                 <h3 style="margin-bottom: 12px; font-weight: 600; font-size: 1.2rem;" tabindex="0">Divulgar</h3>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">Partilhe a sua peça ecológica com os seus contactos de forma rápida.</p>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">Compartilhe sua peça ecológica com seus contatos de forma rápida.</p>
                 <button class="btn btn-secondary" onclick="App.copyToWhatsApp()" aria-label="Copiar mensagem para o WhatsApp">
-                    Partilhar no WhatsApp
+                    Compartilhar no WhatsApp
                 </button>
             </div>
         </section>
 
         <!-- ECRÃ 5: PERFIL / CARTEIRA -->
         <section id="profile" class="section" role="region" aria-labelledby="profile-title">
-            <h2 class="large-title" tabindex="0">A sua Renda</h2>
-
+            <h2 class="large-title" tabindex="0">Sua Renda</h2>
             <div class="card" style="text-align: center; padding: 40px 20px;" tabindex="0">
                 <p style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Saldo Acumulado</p>
                 <h2 id="totalBalance" class="sf-rounded wallet-highlight" style="font-size: 4rem; font-weight: 700; margin: 8px 0;">R$ 0,00</h2>
-                <p style="font-size: 0.95rem; color: var(--text-secondary);">Com o seu trabalho sustentável.</p>
+                <p style="font-size: 0.95rem; color: var(--text-secondary);">Com seu trabalho sustentável.</p>
             </div>
-
             <div class="card">
                 <h3 id="profile-title" style="margin-bottom: 16px; font-size: 1.3rem; font-weight: 600;" tabindex="0">Histórico de Vendas</h3>
                 <div id="salesHistory" role="list" aria-label="Histórico de vendas passadas">
@@ -430,21 +248,19 @@
         </section>
     </main>
 
-    <!-- Modal Acessibilidade & Configurações -->
+    <!-- Modal Acessibilidade -->
     <div class="a11y-modal" id="a11yModal" role="dialog" aria-label="Menu de Acessibilidade">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <h3 style="font-size: 1.3rem; font-weight: 700;">Acessibilidade</h3>
             <button onclick="App.toggleA11yMenu()" style="background: none; border: none; font-size: 1.2rem; color: var(--text-secondary); cursor: pointer;">✕</button>
         </div>
-        
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div>
-                <span style="font-weight: 600; display: block;">Leitor de Ecrã</span>
+                <span style="font-weight: 600; display: block;">Leitor de Tela</span>
                 <span style="font-size: 0.8rem; color: var(--text-secondary);">Narração por voz da interface.</span>
             </div>
-            <input type="checkbox" id="toggleVoice" class="apple-toggle" onchange="App.toggleVoiceAssistant()" aria-label="Ativar Leitor de Ecrã">
+            <input type="checkbox" id="toggleVoice" class="apple-toggle" onchange="App.toggleVoiceAssistant()" aria-label="Ativar Leitor de Tela">
         </div>
-        
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <div>
                 <span style="font-weight: 600; display: block;">Modo Escuro</span>
@@ -456,21 +272,15 @@
 
     <nav class="bottom-nav" role="navigation" aria-label="Navegação Principal">
         <div class="nav-item active" onclick="App.showSection('home')" id="nav-home" role="button" tabindex="0" aria-label="Ir para Início, Inventário">
-            <span class="nav-icon" aria-hidden="true">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            </span>
+            <span class="nav-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>
             <span aria-hidden="true">Início</span>
         </div>
         <div class="nav-item" onclick="App.showSection('ideas')" id="nav-ideas" role="button" tabindex="0" aria-label="Ir para Projetos">
-            <span class="nav-icon" aria-hidden="true">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            </span>
+            <span class="nav-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>
             <span aria-hidden="true">Projetos</span>
         </div>
         <div class="nav-item" onclick="App.showSection('profile')" id="nav-profile" role="button" tabindex="0" aria-label="Ir para Carteira e Histórico">
-            <span class="nav-icon" aria-hidden="true">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 2-2h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg>
-            </span>
+            <span class="nav-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 2-2h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg></span>
             <span aria-hidden="true">Renda</span>
         </div>
     </nav>
@@ -478,20 +288,12 @@
     <script>
         const App = {
             state: {
-                currentSection: 'home',
-                theme: 'light',
-                voiceEnabled: false,
-                isListening: false,
-                activeFilter: 'all',
-                selectedMaterials: { pet: 0, cardboard: 0, can: 0, clothes: 0, paper: 0 },
-                currentIdea: null,
-                totalEarned: 0,
-                history: []
+                currentSection: 'home', theme: 'light', voiceEnabled: false, isListening: false,
+                activeFilter: 'all', selectedMaterials: { pet: 0, cardboard: 0, can: 0, clothes: 0, paper: 0 },
+                currentIdea: null, totalEarned: 0, history: []
             },
             
-            speechSyn: window.speechSynthesis,
-            recognition: null,
-            videoStream: null,
+            speechSyn: window.speechSynthesis, recognition: null, videoStream: null,
 
             db: {
                 materials: {
@@ -505,41 +307,113 @@
                     { 
                         id: 1, product: 'Vaso Auto-irrigável', difficulty: 'Fácil', basePrice: 15,
                         material: 'pet', requirements: { pet: 1 },
-                        materialsList: ["1 Garrafa PET", "Tesoura ou X-ato", "Fio de algodão", "Terra e Planta"],
-                        detailedSteps: ["Corte a garrafa PET exatamente ao meio.", "Faça um furo na tampa e passe o fio de algodão.", "Coloque água na base, encaixe o topo invertido e adicione terra com a planta."],
+                        materialsList: ["1 Garrafa PET", "Tesoura ou Estilete", "Fio de algodão", "Terra e Planta"],
+                        detailedSteps: [
+                            { instruction: "Corte a garrafa PET exatamente ao meio.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#f0f9ff"/><path d="M70 40 Q80 20 100 20 Q120 20 130 40 L130 160 Q120 180 100 180 Q80 180 70 160 Z" fill="#4ade80" opacity="0.8"/><rect x="90" y="10" width="20" height="15" fill="#16a34a" rx="3"/><line x1="40" y1="100" x2="160" y2="100" stroke="#ef4444" stroke-width="4" stroke-dasharray="8,8"/><path d="M140 100 L170 80 L180 90 L150 110 Z" fill="#94a3b8"/><circle cx="175" cy="85" r="8" fill="none" stroke="#ef4444" stroke-width="4"/><circle cx="155" cy="115" r="8" fill="none" stroke="#ef4444" stroke-width="4"/></svg>` },
+                            { instruction: "Faça um furo na tampa e passe o fio de algodão.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#fffbeb"/><path d="M50 70 L150 70 L140 120 L60 120 Z" fill="#16a34a"/><circle cx="100" cy="120" r="10" fill="#064e3b"/><path d="M100 20 L100 180" stroke="#d97706" stroke-width="6" stroke-dasharray="10,5"/></svg>` },
+                            { instruction: "Coloque água na base, encaixe o topo invertido e adicione terra com a planta.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#f0fdf4"/><path d="M60 100 L140 100 L140 160 Q140 180 100 180 Q60 180 60 160 Z" fill="#60a5fa" opacity="0.5"/><path d="M60 100 L140 100 L115 160 L85 160 Z" fill="#86efac" opacity="0.8"/><rect x="90" y="160" width="20" height="10" fill="#16a34a" rx="2"/><path d="M60 100 L140 100 L115 150 L85 150 Z" fill="#78350f"/><path d="M100 100 Q80 60 110 30 Q130 50 100 80" fill="#22c55e"/><path d="M100 90 Q120 70 90 40 Q70 60 90 90" fill="#16a34a"/></svg>` }
+                        ],
                         finalPreview: {
                             description: "Vaso sustentável com reservatório acoplado.",
-                            image: `<svg role="img" aria-label="Ilustração de um Vaso feito de garrafa PET com uma planta verde." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="var(--bg-body)" /><path d="M 60 100 L 140 100 L 115 145 L 85 145 Z" fill="var(--system-green)" opacity="0.3"/><path d="M 100 100 Q 90 70 115 50" fill="none" stroke="var(--system-green)" stroke-width="5" stroke-linecap="round"/></svg>`
+                            image: `<svg role="img" aria-label="Ilustração do Vaso completo." viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="var(--bg-body)" /><path d="M60 100 L140 100 L140 160 Q140 180 100 180 Q60 180 60 160 Z" fill="#60a5fa" opacity="0.5"/><path d="M60 100 L140 100 L115 160 L85 160 Z" fill="#86efac" opacity="0.8"/><rect x="90" y="160" width="20" height="10" fill="#16a34a" rx="2"/><path d="M60 100 L140 100 L115 150 L85 150 Z" fill="#78350f"/><path d="M100 100 Q80 60 110 30 Q130 50 100 80" fill="#22c55e"/><path d="M100 90 Q120 70 90 40 Q70 60 90 90" fill="#16a34a"/></svg>`
                         }
                     },
                     { 
                         id: 2, product: 'Organizador Premium', difficulty: 'Médio', basePrice: 25,
                         material: 'cardboard', requirements: { cardboard: 2 },
-                        materialsList: ["2 Pedaços de Papelão", "Cola Quente", "Tecido, Tinta ou Papel Autocolante"],
-                        detailedSteps: ["Corte o papelão em placas e divisórias à medida.", "Utilize cola quente para erguer as paredes formando nichos.", "Forre o exterior com o tecido escolhido para um acabamento premium."],
+                        materialsList: ["2 Pedaços de Papelão", "Cola Quente", "Tecido ou Papel Contact"],
+                        detailedSteps: [
+                            { instruction: "Corte o papelão em placas e divisórias sob medida.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#fff7ed"/><rect x="30" y="40" width="140" height="120" fill="#fcd34d"/><line x1="80" y1="40" x2="80" y2="160" stroke="#b45309" stroke-width="4" stroke-dasharray="10,10"/><line x1="130" y1="40" x2="130" y2="160" stroke="#b45309" stroke-width="4" stroke-dasharray="10,10"/><rect x="10" y="80" width="180" height="25" fill="#fca5a5" stroke="#b91c1c" stroke-width="3"/><path d="M140 20 L160 20 L150 70 L130 70 Z" fill="#94a3b8" stroke="#475569" stroke-width="3"/></svg>` },
+                            { instruction: "Utilize cola quente para erguer as paredes formando nichos.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#fce7f3"/><rect x="40" y="80" width="120" height="80" fill="#f59e0b"/><rect x="60" y="40" width="20" height="120" fill="#fbbf24"/><rect x="120" y="40" width="20" height="120" fill="#fbbf24"/><path d="M70 70 L80 70 L90 100 L110 100 L120 70 L130 70" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/><circle cx="130" cy="70" r="10" fill="#fff"/></svg>` },
+                            { instruction: "Forre o exterior com o tecido escolhido para um acabamento premium.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#e0e7ff"/><rect x="40" y="60" width="120" height="80" fill="#3b82f6"/><path d="M40 60 L100 40 L160 60" fill="#60a5fa"/><path d="M40 140 L100 160 L160 140" fill="#1d4ed8"/><circle cx="70" cy="100" r="15" fill="#fca5a5"/><circle cx="130" cy="100" r="15" fill="#fca5a5"/></svg>` }
+                        ],
                         finalPreview: {
-                            description: "Organizador de secretária elegante.",
-                            image: `<svg role="img" aria-label="Ilustração de um organizador de mesa de papelão com canetas coloridas." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="var(--bg-body)" /><rect x="50" y="80" width="100" height="70" rx="6" fill="var(--system-yellow)" opacity="0.8"/><rect x="65" y="60" width="8" height="50" fill="var(--system-green)" rx="4" transform="rotate(-15 68 85)"/></svg>`
+                            description: "Organizador de mesa elegante.",
+                            image: `<svg role="img" aria-label="Ilustração do organizador." viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="var(--bg-body)" /><rect x="40" y="80" width="120" height="80" rx="4" fill="#3b82f6"/><path d="M40 80 L100 60 L160 80" fill="#60a5fa"/><circle cx="70" cy="120" r="15" fill="#fca5a5"/><circle cx="130" cy="120" r="15" fill="#fca5a5"/><rect x="50" y="40" width="15" height="60" fill="#facc15" rx="2" transform="rotate(-15 50 40)"/><rect x="135" y="50" width="15" height="50" fill="#ef4444" rx="2" transform="rotate(10 135 50)"/></svg>`
                         }
                     },
                     { 
                         id: 3, product: 'Porta-Lápis Minimal', difficulty: 'Fácil', basePrice: 10,
                         material: 'can', requirements: { can: 1 },
                         materialsList: ["1 Lata vazia e lavada", "Folha de Lixa", "Tinta Acrílica"],
-                        detailedSteps: ["Passe a lixa com cuidado no rebordo para evitar cortes.", "Pinte a lata com duas demãos de tinta sólida.", "Deixe secar completamente antes de colocar as canetas."],
+                        detailedSteps: [
+                            { instruction: "Passe a lixa com cuidado na borda para evitar cortes.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#f3f4f6"/><rect x="60" y="60" width="80" height="100" fill="#cbd5e1" rx="5"/><ellipse cx="100" cy="60" rx="40" ry="15" fill="#94a3b8"/><rect x="40" y="30" width="80" height="25" fill="#d97706" transform="rotate(-15 80 40)"/><path d="M50 30 Q100 10 150 30" fill="none" stroke="#475569" stroke-width="4" stroke-dasharray="6,6"/></svg>` },
+                            { instruction: "Pinte a lata com duas demãos de tinta sólida.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#dbeafe"/><rect x="60" y="60" width="80" height="100" fill="#ef4444" rx="5"/><ellipse cx="100" cy="60" rx="40" ry="15" fill="#fca5a5"/><rect x="120" y="10" width="20" height="80" fill="#fbbf24" transform="rotate(25 130 50)"/><path d="M100 60 L130 80 L100 90 Z" fill="#b91c1c"/></svg>` },
+                            { instruction: "Deixe secar completamente antes de colocar as canetas.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#d1fae5"/><rect x="60" y="80" width="80" height="100" fill="#ef4444" rx="5"/><rect x="70" y="30" width="15" height="70" fill="#fbbf24"/><polygon points="70,30 85,30 77.5,15" fill="#b45309"/><rect x="110" y="40" width="15" height="60" fill="#3b82f6"/><polygon points="110,40 125,40 117.5,25" fill="#1d4ed8"/></svg>` }
+                        ],
                         finalPreview: {
                             description: "Lata reaproveitada para uso em escritório.",
-                            image: `<svg role="img" aria-label="Ilustração de uma lata servindo de porta lápis." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="var(--bg-body)" /><path d="M 60 90 L 60 160 Q 60 170 100 170 Q 140 170 140 160 L 140 90 Z" fill="var(--system-blue)" opacity="0.6"/></svg>`
+                            image: `<svg role="img" aria-label="Ilustração de lata." viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="var(--bg-body)" /><rect x="60" y="80" width="80" height="100" fill="#ef4444" rx="5"/><ellipse cx="100" cy="80" rx="40" ry="15" fill="#fca5a5"/><rect x="70" y="30" width="15" height="70" fill="#fbbf24"/><polygon points="70,30 85,30 77.5,15" fill="#b45309"/><rect x="110" y="40" width="15" height="60" fill="#3b82f6"/><polygon points="110,40 125,40 117.5,25" fill="#1d4ed8"/></svg>`
                         }
                     },
                     {
                         id: 4, product: 'Saco EcoBag', difficulty: 'Médio', basePrice: 30,
                         material: 'clothes', requirements: { clothes: 1 },
-                        materialsList: ["1 T-shirt antiga", "Tesoura própria para tecido"],
-                        detailedSteps: ["Corte as mangas e alargue a gola da t-shirt para criar as alças.", "Vire do avesso, faça cortes em franja na base e dê nós duplos apertados.", "Vire novamente para o lado certo e está pronta a usar."],
+                        materialsList: ["1 Camiseta antiga", "Tesoura própria para tecido"],
+                        detailedSteps: [
+                            { instruction: "Corte as mangas e alargue a gola da camiseta para criar as alças.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#fce7f3"/><path d="M50 40 L150 40 L160 80 L120 80 L120 160 L80 160 L80 80 L40 80 Z" fill="#fcd34d"/><path d="M80 40 Q100 80 120 40" fill="#fff" stroke="#fcd34d" stroke-width="4"/><line x1="75" y1="30" x2="60" y2="90" stroke="#ef4444" stroke-width="4" stroke-dasharray="8,8"/><line x1="125" y1="30" x2="140" y2="90" stroke="#ef4444" stroke-width="4" stroke-dasharray="8,8"/></svg>` },
+                            { instruction: "Vire do avesso, faça cortes em franja na base e dê nós duplos apertados.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#ede9fe"/><rect x="60" y="40" width="80" height="100" fill="#fbbf24"/><line x1="70" y1="140" x2="70" y2="180" stroke="#fbbf24" stroke-width="6"/><line x1="90" y1="140" x2="90" y2="180" stroke="#fbbf24" stroke-width="6"/><line x1="110" y1="140" x2="110" y2="180" stroke="#fbbf24" stroke-width="6"/><line x1="130" y1="140" x2="130" y2="180" stroke="#fbbf24" stroke-width="6"/><circle cx="70" cy="160" r="6" fill="#b45309"/><circle cx="90" cy="160" r="6" fill="#b45309"/><circle cx="110" cy="160" r="6" fill="#b45309"/><circle cx="130" cy="160" r="6" fill="#b45309"/></svg>` },
+                            { instruction: "Vire novamente para o lado certo e está pronta para usar.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#fafaf9"/><path d="M60 80 L140 80 L130 170 L70 170 Z" fill="#f59e0b"/><path d="M80 80 Q80 20 100 20 Q120 20 120 80" fill="none" stroke="#f59e0b" stroke-width="12" stroke-linecap="round"/></svg>` }
+                        ],
                         finalPreview: {
                             description: "Saco de compras em tecido resistente.",
-                            image: `<svg role="img" aria-label="Ilustração de uma sacola ecobag feita de tecido." viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="var(--bg-body)" /><path d="M 55 80 L 145 80 L 135 150 Q 133 165 100 165 Q 67 165 65 150 Z" fill="var(--system-red)" opacity="0.7"/><path d="M 75 80 Q 75 35 100 35 Q 125 35 125 80" fill="none" stroke="var(--system-red)" stroke-width="12" stroke-linecap="round" opacity="0.7"/></svg>`
+                            image: `<svg role="img" aria-label="Ilustração da Ecobag." viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="var(--bg-body)" /><path d="M60 80 L140 80 L130 170 L70 170 Z" fill="#f59e0b"/><path d="M80 80 Q80 20 100 20 Q120 20 120 80" fill="none" stroke="#f59e0b" stroke-width="12" stroke-linecap="round"/><circle cx="100" cy="120" r="20" fill="#fff" opacity="0.4"/></svg>`
+                        }
+                    },
+                    {
+                        id: 6, product: 'Cesto Trançado', difficulty: 'Médio', basePrice: 35,
+                        material: 'paper', requirements: { paper: 5 },
+                        materialsList: ["5 ou mais Jornais/Revistas", "Cola Branca", "Palito de churrasco (molde)"],
+                        detailedSteps: [
+                            { instruction: "Enrole folhas de jornal no palito para fazer canudos de papel.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#fef3c7"/><rect x="40" y="40" width="120" height="120" fill="#fef08a" transform="rotate(-15 100 100)"/><line x1="20" y1="160" x2="180" y2="40" stroke="#78350f" stroke-width="8" stroke-linecap="round"/><path d="M80 60 L140 100" stroke="#ca8a04" stroke-width="4"/></svg>` },
+                            { instruction: "Faça uma base em cruz e trance os canudos em espiral subindo as paredes.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#ffedd5"/><rect x="20" y="80" width="160" height="15" fill="#fde047"/><rect x="20" y="105" width="160" height="15" fill="#fde047"/><rect x="80" y="20" width="15" height="160" fill="#facc15"/><rect x="105" y="20" width="15" height="160" fill="#facc15"/><rect x="80" y="80" width="15" height="15" fill="#eab308"/><rect x="105" y="105" width="15" height="15" fill="#eab308"/></svg>` },
+                            { instruction: "Finalize pintando ou aplicando verniz para endurecer e proteger.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#d1fae5"/><path d="M40 80 L160 80 L140 160 L60 160 Z" fill="#b45309"/><path d="M40 80 Q100 110 160 80" fill="none" stroke="#78350f" stroke-width="6"/><path d="M150 20 L130 60 L150 70 Z" fill="#fca5a5"/><line x1="140" y1="65" x2="120" y2="100" stroke="#fde047" stroke-width="8" stroke-linecap="round"/></svg>` }
+                        ],
+                        finalPreview: {
+                            description: "Cesto resistente com aspecto de vime natural.",
+                            image: `<svg role="img" aria-label="Ilustração de um cesto." viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="var(--bg-body)" /><path d="M40 80 L160 80 L140 160 L60 160 Z" fill="#b45309"/><path d="M40 80 Q100 110 160 80" fill="none" stroke="#78350f" stroke-width="6"/><path d="M40 80 Q100 50 160 80" fill="none" stroke="#78350f" stroke-width="6"/></svg>`
+                        }
+                    },
+                    { 
+                        id: 7, product: 'Porta-Moedas Zip', difficulty: 'Médio', basePrice: 18,
+                        material: 'pet', requirements: { pet: 2 },
+                        materialsList: ["2 Fundos de Garrafa PET", "1 Zíper (fecho éclair)", "Cola Quente ou Fio de costura"],
+                        detailedSteps: [
+                            { instruction: "Corte os fundos de duas garrafas PET do mesmo tamanho.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#e0f2fe"/><path d="M50 80 Q100 140 150 80" fill="#bae6fd" stroke="#0284c7" stroke-width="6"/><path d="M60 70 Q100 120 140 70" fill="none" stroke="#0284c7" stroke-width="4"/><line x1="30" y1="80" x2="170" y2="80" stroke="#e11d48" stroke-width="6" stroke-dasharray="10,10"/></svg>` },
+                            { instruction: "Meça o zíper à volta das bordas e corte o excesso.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#fef3c7"/><path d="M30 100 Q100 30 170 100" fill="none" stroke="#a855f7" stroke-width="15" stroke-linecap="round"/><path d="M30 100 Q100 30 170 100" fill="none" stroke="#4c1d95" stroke-width="4" stroke-dasharray="6,6"/><rect x="90" y="45" width="20" height="30" fill="#94a3b8" rx="4"/></svg>` },
+                            { instruction: "Cole ou costure o zíper unindo perfeitamente as duas metades.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#e0e7ff"/><circle cx="100" cy="100" r="60" fill="#bae6fd" stroke="#0284c7" stroke-width="6"/><line x1="40" y1="100" x2="160" y2="100" stroke="#a855f7" stroke-width="12"/><line x1="40" y1="100" x2="160" y2="100" stroke="#4c1d95" stroke-width="4" stroke-dasharray="8,8"/><rect x="120" y="90" width="20" height="20" fill="#94a3b8" rx="4"/></svg>` }
+                        ],
+                        finalPreview: {
+                            description: "Um porta-moedas resistente, impermeável e sustentável.",
+                            image: `<svg role="img" aria-label="Ilustração de um porta moedas de garrafa PET." viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="var(--bg-body)" /><circle cx="100" cy="100" r="60" fill="#bae6fd" stroke="#0284c7" stroke-width="6"/><line x1="40" y1="100" x2="160" y2="100" stroke="#a855f7" stroke-width="12"/><line x1="40" y1="100" x2="160" y2="100" stroke="#4c1d95" stroke-width="4" stroke-dasharray="8,8"/><rect x="120" y="90" width="20" height="20" fill="#94a3b8" rx="4"/></svg>`
+                        }
+                    },
+                    { 
+                        id: 8, product: 'Cama Pet Confortável', difficulty: 'Fácil', basePrice: 40,
+                        material: 'clothes', requirements: { clothes: 2 },
+                        materialsList: ["1 Blusa de moletom velha", "Enchimento de almofada", "Agulha e Linha"],
+                        detailedSteps: [
+                            { instruction: "Vire a peça do avesso e costure a gola para fechá-la.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#fce7f3"/><path d="M50 60 L80 40 L120 40 L150 60 L150 100 L50 100 Z" fill="#fbcfe8" stroke="#be185d" stroke-width="6"/><line x1="80" y1="40" x2="120" y2="40" stroke="#831843" stroke-width="8" stroke-dasharray="10,10"/><path d="M140 20 Q100 10 80 40" fill="none" stroke="#9ca3af" stroke-width="4"/></svg>` },
+                            { instruction: "Insira o enchimento nas mangas e no peito da blusa.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#f3f4f6"/><path d="M50 60 L80 40 L120 40 L150 60 L150 140 L50 140 Z" fill="none" stroke="#f472b6" stroke-width="6"/><circle cx="100" cy="100" r="30" fill="#fff" stroke="#d1d5db" stroke-width="4"/><circle cx="80" cy="80" r="20" fill="#fff" stroke="#d1d5db" stroke-width="4"/><circle cx="120" cy="90" r="25" fill="#fff" stroke="#d1d5db" stroke-width="4"/></svg>` },
+                            { instruction: "Costure a base e una as mangas formando um círculo de proteção.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#ffe4e6"/><ellipse cx="100" cy="100" rx="80" ry="50" fill="#f472b6" stroke="#be185d" stroke-width="6"/><ellipse cx="100" cy="100" rx="40" ry="20" fill="#ffe4e6" stroke="#be185d" stroke-width="6"/><line x1="60" y1="100" x2="70" y2="100" stroke="#831843" stroke-width="6"/><line x1="130" y1="100" x2="140" y2="100" stroke="#831843" stroke-width="6"/></svg>` }
+                        ],
+                        finalPreview: {
+                            description: "Cama macia e sustentável para cães ou gatos.",
+                            image: `<svg role="img" aria-label="Ilustração de uma cama para animais de estimação." viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="var(--bg-body)" /><ellipse cx="100" cy="100" rx="80" ry="50" fill="#f472b6" stroke="#be185d" stroke-width="6"/><ellipse cx="100" cy="100" rx="40" ry="20" fill="#ffe4e6" stroke="#be185d" stroke-width="6"/></svg>`
+                        }
+                    },
+                    { 
+                        id: 9, product: 'Luminária Geométrica', difficulty: 'Difícil', basePrice: 55,
+                        material: 'cardboard', requirements: { cardboard: 3 },
+                        materialsList: ["Papelão resistente", "Estilete ou Tesoura", "Soquete e Lâmpada LED"],
+                        detailedSteps: [
+                            { instruction: "Corte pentágonos e hexágonos precisos no papelão.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#e0e7ff"/><polygon points="70,50 100,50 120,80 100,110 70,110 50,80" fill="#fcd34d" stroke="#b45309" stroke-width="6"/><polygon points="140,80 160,100 150,130 120,130 110,100" fill="#fcd34d" stroke="#b45309" stroke-width="6"/><path d="M80 20 L80 160" stroke="#3b82f6" stroke-dasharray="10,10" stroke-width="4"/></svg>` },
+                            { instruction: "Cole as peças pelas arestas formando uma cúpula ou esfera.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#ffedd5"/><polygon points="80,60 120,60 140,100 120,140 80,140 60,100" fill="#fcd34d" stroke="#b45309" stroke-width="6"/><polygon points="80,60 60,30 100,30 120,60" fill="#f59e0b" stroke="#b45309" stroke-width="6"/><polygon points="60,100 30,80 30,120 80,140" fill="#f59e0b" stroke="#b45309" stroke-width="6"/><polygon points="140,100 170,80 170,120 120,140" fill="#f59e0b" stroke="#b45309" stroke-width="6"/></svg>` },
+                            { instruction: "Deixe uma abertura no topo e encaixe o fio e o soquete.", image: `<svg viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="#fef08a"/><polygon points="60,60 140,60 120,140 80,140" fill="#fcd34d" stroke="#b45309" stroke-width="6"/><circle cx="100" cy="105" r="20" fill="#fff" stroke="#eab308" stroke-width="4"/><line x1="100" y1="60" x2="100" y2="20" stroke="#475569" stroke-width="8"/><rect x="90" y="40" width="20" height="20" fill="#94a3b8" stroke="#475569" stroke-width="4"/></svg>` }
+                        ],
+                        finalPreview: {
+                            description: "Luminária moderna que projeta sombras geométricas incríveis.",
+                            image: `<svg role="img" aria-label="Ilustração de um candeeiro geométrico feito de cartão." viewBox="0 0 200 200" width="100%" height="100%"><rect width="200" height="200" fill="var(--bg-body)" /><polygon points="100,50 150,90 130,140 70,140 50,90" fill="#f59e0b" opacity="0.8"/><circle cx="100" cy="100" r="20" fill="#fff" opacity="0.9"/></svg>`
                         }
                     }
                 ]
@@ -557,14 +431,12 @@
 
                 this.showSection(this.state.currentSection, false);
                 
-                // Keyboard accessibility
                 document.querySelectorAll('.nav-item').forEach(item => {
                     item.addEventListener('keypress', (e) => {
                         if (e.key === 'Enter' || e.key === ' ') item.click();
                     });
                 });
 
-                // Detetar modo escuro do sistema (se o utilizador não forçou na app)
                 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
                     if(!localStorage.getItem('ecorenda_apple_theme_forced')) {
                         this.state.theme = event.matches ? 'dark' : 'light';
@@ -593,14 +465,14 @@
                 const modal = document.getElementById('a11yModal');
                 const isVisible = modal.style.display === 'block';
                 modal.style.display = isVisible ? 'none' : 'block';
-                if (!isVisible) this.announce("Menu de Definições aberto.");
+                if (!isVisible) this.announce("Menu de Configurações aberto.");
             },
 
             toggleVoiceAssistant() {
                 this.state.voiceEnabled = document.getElementById('toggleVoice').checked;
                 this.saveToStorage();
                 if (this.state.voiceEnabled) {
-                    this.announce("Leitor de Ecrã ativado.");
+                    this.announce("Leitor de Tela ativado.");
                 } else {
                     if (this.speechSyn.speaking) this.speechSyn.cancel();
                 }
@@ -617,7 +489,7 @@
                 this.recognition.onstart = () => {
                     this.state.isListening = true;
                     document.getElementById('micBtn').classList.add('voice-listening');
-                    this.announce("A ouvir o seu comando.");
+                    this.announce("Ouvindo seu comando.");
                 };
 
                 this.recognition.onresult = (event) => {
@@ -671,7 +543,7 @@
                 const btn = document.getElementById('btnScan');
 
                 try {
-                    this.announce("A abrir câmara. Aponte para os materiais.");
+                    this.announce("Abrindo câmera. Aponte para os materiais.");
                     this.videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
                     video.srcObject = this.videoStream;
                     scanner.style.display = 'block';
@@ -680,7 +552,7 @@
                     setTimeout(() => { this.processCameraAI(); }, 3000);
 
                 } catch (err) {
-                    this.announce("Acesso à câmara negado ou indisponível.");
+                    this.announce("Acesso à câmera negado ou indisponível.");
                 }
             },
 
@@ -733,11 +605,11 @@
 
                 if (shouldAnnounce) {
                     const titles = {
-                        'home': 'Ecrã Início. O seu inventário.',
+                        'home': 'Tela Início. Seu inventário.',
                         'ideas': 'Projetos de Reciclagem.',
                         'tutorial': 'Instruções do Projeto.',
                         'sell': 'Calculadora de Valor.',
-                        'profile': 'A sua Renda e Histórico.'
+                        'profile': 'Sua Renda e Histórico.'
                     };
                     this.announce(titles[sectionId]);
                 }
@@ -760,8 +632,6 @@
                     if(change < 0) this.announce(`${this.db.materials[materialId].name} removida.`);
                     
                     this.saveToStorage();
-                    
-                    // Se não houver elemento no ecrã (se estivermos noutro separador), não forçar re-render da home, mas os dados estão salvos.
                 }
             },
 
@@ -830,7 +700,7 @@
                 }
 
                 if (!possibleIdeas.length) {
-                    const msg = "Sem projetos compatíveis com o seu stock atual. Adicione materiais no Inventário para ver ideias.";
+                    const msg = "Sem projetos compatíveis com seu estoque atual. Adicione materiais no Inventário para ver ideias.";
                     list.innerHTML = `<div style="text-align:center; padding:40px 20px; color: var(--text-secondary);"><span style="font-size: 2.5rem; display:block; margin-bottom: 12px; opacity: 0.5;">💡</span><p style="font-weight: 500;">${msg}</p></div>`;
                     if(this.state.currentSection === 'ideas') this.announce(msg);
                     return;
@@ -869,21 +739,27 @@
                 const idea = this.state.currentIdea;
 
                 container.innerHTML = `
-                    <h2 style="margin-bottom: 24px; font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px;" tabindex="0">${idea.product}</h2>
+                    <h2 class="large-title" style="margin-bottom: 24px;" tabindex="0">${idea.product}</h2>
                     
                     <div style="margin-bottom: 30px;">
-                        <h3 style="margin-bottom: 16px; font-size: 0.85rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px;" tabindex="0">Instruções</h3>
-                        <ul style="list-style-type: none; padding: 0; color: var(--text-primary); font-weight: 500; line-height: 1.6;">
+                        <h3 style="margin-bottom: 16px; font-size: 0.85rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px;" tabindex="0">Instruções Passo a Passo</h3>
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
                             ${idea.detailedSteps.map((step, idx) => `
-                                <li tabindex="0" style="display: flex; gap: 14px; margin-bottom: 20px;">
-                                    <span class="sf-rounded" style="background: var(--bg-body); color: var(--system-green); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 700; flex-shrink: 0;">${idx+1}</span>
-                                    <span style="padding-top: 2px;">${step}</span>
-                                </li>`).join('')}
-                        </ul>
+                                <div class="step-card" tabindex="0">
+                                    <div style="display: flex; gap: 14px;">
+                                        <span class="sf-rounded" style="background: var(--bg-body); color: var(--system-green); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 700; flex-shrink: 0;">${idx+1}</span>
+                                        <span style="font-weight: 500; line-height: 1.5; color: var(--text-primary); padding-top: 2px;">${step.instruction}</span>
+                                    </div>
+                                    <div class="step-image" aria-label="Ilustração do passo ${idx+1}">
+                                        ${step.image}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
 
                     <div style="background: var(--bg-body); padding: 16px; border-radius: var(--radius-md);">
-                        <h3 style="margin-bottom: 12px; font-size: 0.85rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px;" tabindex="0">Visualização</h3>
+                        <h3 style="margin-bottom: 12px; font-size: 0.85rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px;" tabindex="0">Resultado Esperado</h3>
                         <div style="width: 100%; height: 200px; background: var(--bg-card); border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center;" tabindex="0">
                              ${idea.finalPreview.image}
                         </div>
@@ -893,8 +769,8 @@
                 this.showSection('tutorial');
                 
                 if(this.state.voiceEnabled) {
-                    const stepsText = idea.detailedSteps.map((s,i) => `Passo ${i+1}, ${s}`).join('. ');
-                    this.announce(`A apresentar ${idea.product}. Passos: ${stepsText}.`);
+                    const stepsText = idea.detailedSteps.map((s,i) => `Passo ${i+1}, ${s.instruction}`).join('. ');
+                    this.announce(`Apresentando ${idea.product}. Passos: ${stepsText}.`);
                 }
             },
 
@@ -948,7 +824,7 @@
                 
                 this.triggerConfetti();
                 
-                const successMsg = `Renda registada! ${price.toFixed(2)} reais foram adicionados.`;
+                const successMsg = `Renda registrada! ${price.toFixed(2)} reais foram adicionados.`;
                 this.announce(successMsg);
                 
                 setTimeout(() => { this.showSection('profile'); }, 800);
@@ -978,12 +854,12 @@
                 
                 const list = document.getElementById('salesHistory');
                 if (this.state.history.length === 0) {
-                    list.innerHTML = `<div style="text-align: center; color: var(--text-secondary); padding: 40px 10px;"><p style="font-weight: 500;">O seu histórico está vazio.</p></div>`;
+                    list.innerHTML = `<div style="text-align: center; color: var(--text-secondary); padding: 40px 10px;"><p style="font-weight: 500;">Seu histórico está vazio.</p></div>`;
                     return;
                 }
 
                 list.innerHTML = this.state.history.map(item => `
-                    <div class="history-item" tabindex="0" aria-label="Rendimento de ${item.price.toFixed(2)} reais com ${item.product}, em ${item.date}">
+                    <div class="material-item" tabindex="0" aria-label="Rendimento de ${item.price.toFixed(2)} reais com ${item.product}, em ${item.date}">
                         <div>
                             <strong style="font-size: 1.05rem; font-weight: 600;">${item.product}</strong>
                             <br><small style="color: var(--text-secondary); font-size: 0.85rem; font-weight: 500;">${item.date}</small>
@@ -1009,12 +885,12 @@
             },
 
             saveToStorage() {
-                localStorage.setItem('ecorenda_apple_v2', JSON.stringify(this.state));
+                localStorage.setItem('ecorenda_apple_final_v5', JSON.stringify(this.state));
                 if(this.state.currentSection === 'profile') this.updateWallet();
             },
 
             loadFromStorage() {
-                const saved = localStorage.getItem('ecorenda_apple_v2');
+                const saved = localStorage.getItem('ecorenda_apple_final_v5');
                 if (saved) {
                     try {
                         const parsed = JSON.parse(saved);
